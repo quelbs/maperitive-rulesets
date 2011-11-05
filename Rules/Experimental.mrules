@@ -1,0 +1,35 @@
+features
+	points
+		allpoints : 
+		parking : amenity=parking
+	lines
+		allways : 
+
+properties
+	map-background-color : white
+
+rules
+	target : parking
+		define
+			fill-color : red
+			line-color : blue
+			line-width : 1
+			shape : custom
+			shape-def : -60,0;-20,-40;-20,-15;60,-15;60,15;-20,15;-20,40;-60,0
+			angle : 45
+			shape-aspect : 2
+		draw : shape 
+
+	target : allways
+		define
+			line-color : yellow
+			border-color : black
+			border-style : solid
+			border-width : 40%
+		for : bridge=yes
+			define
+				border-width : 120%  
+		elsefor : tunnel=yes
+			define
+				border-style : dash
+		draw : line

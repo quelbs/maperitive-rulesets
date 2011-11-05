@@ -1,0 +1,79 @@
+// Urbanight rules
+
+// Created by Igor Brejc
+// Released under the Creative Commons Attribution-ShareAlike 3.0 License (http://creativecommons.org/licenses/by-sa/3.0/)
+
+features
+	points
+		
+	lines
+		highway named : highway AND (name OR ref)
+		highway unnamed : highway AND NOT (name OR ref)	
+		waterway : waterway
+		railway : railway
+		aeroway : aeroway
+	
+	areas
+		landuse : landuse OR man_made OR leisure OR amenity OR office OR shop OR craft OR emergency OR tourism OR historic OR sport
+		
+properties
+	map-background-color	: black
+	map-background-opacity	: 1
+	map-sea-color : black
+	
+rules
+	target : highway named
+		define
+			line-color : green
+			line-opacity : 20%
+			line-width : 10:1;16:3
+		draw : line
+
+	target : highway unnamed
+		define
+			line-color : red
+			line-opacity : 10%
+			line-width : 10:1;16:3
+		draw : line
+
+	target : railway
+		define
+			line-color : white
+			line-style : dot
+			line-opacity : 10%
+			line-width : 10:1;16:3
+		draw : line
+
+	target : aeroway
+		define
+			line-color : violet
+			line-style : dash
+			line-opacity : 10%
+			line-width : 10:1;16:3
+		draw : line
+		
+	target : waterway
+		define
+			line-color : #00bff5
+			line-opacity : 20%
+			line-width : 10:1;16:3
+		draw : line
+		
+	target : landuse
+		define
+			line-opacity : 5%
+			line-width : 1
+			line-style : solid
+		for : name OR ref
+			define
+				line-color : yellow
+				fill-color : yellow
+				fill-opacity : 2%
+//			fill-hatch : nwse
+		else
+			define
+				line-color : #a8472c
+				fill-color : #a8472c
+				fill-opacity : 5%
+		draw : fill
+				

@@ -1,0 +1,61 @@
+features
+	power generator : power=generator
+	power station : power=station
+	power substation : power=sub_station
+
+	points
+		power tower : power=tower
+	lines
+		power line : power=line
+		power minor line : power=minor_line
+
+properties
+	map-background-color : #181818
+
+rules
+	target : power generator
+		define
+			shape : triangle
+			shape-size : 12
+			fill-color : yellow
+			line-color : black
+			line-width : 1
+		draw : shape
+
+	target : power station
+		define
+			shape : square
+			shape-size : 12
+			fill-color : green
+			fill-opacity : 0.75
+			line-color : black
+			line-width : 1
+		draw : shape
+
+	target : power substation
+		define
+			shape : square
+			shape-size : 7
+			fill-color : green
+			line-color : black
+			line-width : 1
+		draw : shape
+
+	target : power tower
+		define
+			shape : circle
+			shape-size : 11:5;15:10
+			fill-color : yellow
+			line-width : 0
+		draw : shape
+
+	target : power line
+		define
+			line-color : red
+			line-width : 5
+		draw : line
+
+	target : power minor line
+		define
+			line-color : yellow
+		draw : line

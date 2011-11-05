@@ -1,0 +1,26 @@
+// Wireframe rules
+
+// Created by Igor Brejc
+// Released under the Creative Commons Attribution-ShareAlike 3.0 License (http://creativecommons.org/licenses/by-sa/3.0/)
+
+features
+	lines
+		all lines : 
+	areas
+		all areas : 
+
+properties
+	map-background-color : #181818
+
+rules
+	target : all areas
+		define
+			fill-color : green
+			fill-opacity : 0.1
+		draw : fill
+
+	target : all lines
+		define
+			line-color : lightgray
+			line-width : 0.5
+		draw : line

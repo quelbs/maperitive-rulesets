@@ -1,0 +1,412 @@
+﻿// Maperitive rendering ruleset resembling Google Maps (as of February 2011)
+// http://maperitive.net
+
+// Created by Igor Brejc
+// Released under the Creative Commons Attribution-ShareAlike 3.0 License (http://creativecommons.org/licenses/by-sa/3.0/)
+
+// History:
+// --------
+// 2011-07-26: Updated by Michael <quelbs_at_gmail.com>
+//		- added icons for parks, parking, restaurants and railway
+//		- added names for parks, restaurants
+//		- added rendering of playground, sport, living_street and steps
+//		- added path (thin solid line) and motorway (thicker orange line) rendering adjusted
+//		- added special rendering for tunnels
+
+features
+	points
+		place city : place=city
+		place town : place=town
+		place village : place=village
+		place hamlet : place=hamlet
+		place suburb : place=suburb
+		restaurant : @isOneOf(amenity,pub,fast_food,restaurant,bar)
+
+	points, areas
+		parking : amenity=parking
+		railway station : railway=station
+		park : leisure=park OR leisure=playground
+
+	lines
+		boundary country : boundary=administrative AND (admin_level=2 OR admin_level=4) AND NOT natural=coastline
+
+		aeroway line runway : aeroway=runway
+		aeroway line taxiway : aeroway=taxiway
+		
+		railway : railway=rail AND @isFalse(disused) AND NOT service=yard AND @isFalse(noexit)
+		
+		motorway : highway=motorway
+		motorway link : highway=motorway_link
+		major road : @isOneOf(highway, trunk, trunk_link, primary, primary_link, secondary, tertiary)
+		minor road : @isOneOf(highway, unclassified, residential, service, pedestrian, living_street) OR (highway=track AND (@isOneOf(tracktype, grade1, grade2, grade3) OR NOT tracktype))
+		path : @isOneOf(highway, path, footway, steps) OR (highway=track AND @isOneOf(tracktype, grade4, grade5))
+
+		water line : waterway=stream
+		
+	areas
+		water : natural=water OR natural=wetland OR waterway=riverbank OR waterway=stream OR landuse=reservoir OR landuse=basin
+		aeroway area : aeroway
+		industrial : landuse=industrial
+		residential area : landuse=residential
+		hospital : amenity=hospital
+		sport : sport
+		forest : landuse=forest OR natural=wood
+		cemetery : landuse=cemetery
+
+		
+properties
+	map-background-color	: #F2EFE9
+	map-background-opacity	: 1
+	map-sea-color : #99B3CC
+	font-weight : bold
+	font-family : Arial
+	text-max-width : 7
+	text-halo-width : 35%
+	text-halo-opacity : 0.75
+	text-align-horizontal : center
+	text-align-vertical : center
+	font-stretch : 0.9
+	map.rendering.lflp.min-buffer-space : 5
+	map.rendering.lflp.max-allowed-corner-angle : 40
+	
+rules
+// icons
+	target: park
+		for : leisure=park
+			define
+				icon-image : icons/SJJB/png/landuse_coniferous.p.32.png
+				min-zoom : 16
+				icon-width : 16
+			draw : icon
+	target: parking
+		define
+			icon-image : icons/SJJB/png/transport_parking.n.32.png
+			min-zoom : 17
+			icon-width : 16
+		draw : icon
+	target: railway station
+		define
+			icon-image : icons/SJJB/png/transport_train_station2.n.32.png
+			min-zoom : 17
+			icon-width : 16
+		draw : icon
+	target: restaurant
+		define
+			icon-image : icons/SJJB/png/food_restaurant.glow.32.png
+			icon-width : 14
+			min-zoom : 17
+		for : amentiy=pub
+			define
+				icon-image : icons/SJJB/png/food_pub.glow.32.png
+		for : amenity=bar
+			define
+				icon-image : icons/SJJB/png/food_bar.glow.32.png
+		draw : icon
+// texts
+	target : $featuretype(point)
+		define
+			text-halo-width : 25%
+		if : place*
+			define
+				//font-weight : bold
+	
+			if : *city
+				define
+					font-size : 8:14;11:17;14:18
+					min-zoom : 6
+					max-zoom : 16
+			elseif : *town
+				define
+					font-size : 8:10;11:15;20:18
+					min-zoom : 8
+					max-zoom : 16
+			elseif : *suburb
+				define
+					font-size : 13:10;20:20
+					min-zoom : 11
+					text-color : white black 50%
+			elseif : *village
+				define
+					font-size : 12:10;20:20
+					min-zoom : 11
+			elseif : *hamlet
+				define
+					font-size : 14:8;20:16
+					min-zoom : 14
+		elseif : restaurant
+			define
+				text-align-horizontal : near
+				text-offset-horizontal : 7
+				font-size : 14:8;20:10
+				font-weight : normal
+				min-zoom : 17
+		elseif : park
+			define
+				text-align-horizontal : near
+				text-offset-horizontal : 7
+				font-size : 14:8;20:10
+				font-weight : normal
+				min-zoom : 16
+		else
+			stop
+		draw : text
+
+// lines
+			
+	target : boundary*
+		define
+			line-color : #818181 
+			line-width : 2
+			border-style : solid
+			border-color : #818181 
+			border-width : 110%
+			border-opacity : 0.4
+		draw : line
+
+	target : aeroway line*
+		define
+			min-zoom : 9
+			line-color : #9D9595
+		if : aeroway line runway
+			define
+				line-width : 9:1;10:1;11:2;13:6;15:20
+		else
+			define
+				line-width : 9:1;11:1;13:3;15:10
+		draw : line
+		
+	target : railway
+		define
+			min-zoom : 13
+			line-color : #a1a1a1
+			line-width : 2
+		draw : line
+		define
+			min-zoom : 13
+			line-style : dashlong
+			line-color : white
+			line-width : 1
+			border-style : solid
+			border-color : #a1a1a1
+			border-width : 25%
+		draw : line
+		define
+			min-zoom : 6
+			max-zoom : 13
+			line-style : solid
+			border-style : none
+			line-color : #a1a1a1
+			line-width : 1
+		draw : line
+		
+	target : motorway
+		define
+			line-width : 7:1;13:3;15:4
+			min-zoom : 7
+			line-color : #fd923a
+			line-width : 9
+			border-style : solid
+			border-color : #FFC345 black 20%
+			border-width : 20%
+		for : tunnel=yes
+			define
+				border-style : dot
+		draw : line
+
+		define
+			min-zoom : 7
+			text : ref
+			text-halo-width : 0
+			text-color : white
+			font-size : 9
+			font-weight : bold
+			shape : custom
+			shape-def : m:-10,-10;l:0,-14,10,-10,10,10,0,14,-10,10;z
+			shield-resize-mode : free
+			shield-padding-left : 6
+			shield-padding-right : 6
+			shield-padding-top : 2
+			shield-padding-bottom : 1
+			fill-color : #7488dd
+			line-color : #7488dd black 20%
+			line-width : 1
+		draw : shield
+		
+	target : motorway link
+		define
+			line-width : 7:1;13:2;15:3
+			min-zoom : 10
+			line-color : #ffe068
+			border-style : solid
+			border-color : #ffe068 black 20%
+			border-width : 50%
+		for : tunnel=yes
+			define
+				border-style : dot
+		draw : line
+			
+	target : major road
+		define
+			min-zoom : 8
+			line-color : #fffd8b
+			line-width : 10:1;13:2;14:3;15:4;18:12
+			border-style : solid
+			border-color : #fffd8b black 20%
+			border-width : 1
+			
+		for : highway=tertiary
+			define
+				min-zoom : 11
+		for : tunnel=yes
+			define
+				border-style : dot
+		draw : line
+
+		for : highway=primary
+			define
+				min-zoom : 11.5
+				text : ref
+				text-halo-width : 0
+				font-size : 9
+				font-weight : bold
+				shape : square
+				shield-resize-mode : free
+				shield-padding-left : 4
+				shield-padding-right : 3
+				shield-padding-top : 1
+				shield-padding-bottom : -1
+				fill-color : #fff973
+				line-color : #fd923a
+				line-width : 1
+			draw : shield
+
+		define
+			min-zoom : 13
+			text : text
+			font-size : 13:9.5
+			font-weight : normal
+			text-halo-color : #fffd8b
+		draw : text
+			
+	target : minor road
+		define
+			min-zoom : 10.5
+			max-zoom : 13.1
+			border-style : none
+			line-color : #D4CCB8
+			line-width : 1
+		draw : line
+		define
+			min-zoom : 13.1
+			max-zoom : 20
+			line-color : white
+			line-width : 13:1.5;14:2.5;15:5;16:10
+			border-style : solid
+			border-color : #D4CCB8
+			border-width : 1
+		for : tunnel=yes
+			define
+				border-style : dot
+		draw : line
+		define
+			min-zoom : 15
+			max-zoom : 20
+			font-size : 13:10
+			font-stretch : 0.85
+		draw : text
+	target : *road
+		for : oneway=yes OR oneway=true
+			define
+				min-zoom : 15
+				shape : custom
+				shape-def : 60,0,20,-40,20,-15,-60,-15,-60,15,20,15,20,40;Z
+				shape-size : 12
+				shape-aspect : 1
+				shape-spacing : 10
+				fill-color : #cccccc
+				line-style : none
+			for : oneway=-1
+				define
+					angle : 180
+			draw : shape
+	target : path
+		define
+			min-zoom : 14
+			max-zoom : 20
+			line-color : white
+			border-style : solid
+			border-width : 1
+			border-color : #D4CCB8
+			line-width : 13:1;14:1;15:2
+		for : tunnel=yes
+			define
+				border-style : dot
+		draw : line
+
+	target : water line
+		define
+			min-zoom : 10
+			line-color : #99B3CC
+			line-width : 14:1;16:5;20:10
+		draw : line	
+		
+// landuse
+			
+	target : $featuretype(area)
+		define
+			line-style : none
+			line-width : 1
+		if : water
+			define
+				fill-color : #99B3CC
+		elseif : aeroway area
+			define
+				fill-color : #d1d0cd
+		elseif : industrial
+			define
+				fill-color : #d1d0cd
+		elseif : residential area
+			define
+				fill-color : #EBE6DC
+		elseif : hospital
+			define
+				fill-color : #e5c6c3
+		elseif : park
+			define
+				fill-color : #b5d29c
+		elseif : sport
+			define
+				fill-color : #d5e1dc
+		elseif : cemetery
+			define
+				fill-color : #d1d0cd
+		elseif : forest
+			define
+				min-zoom : 9
+				fill-color : #CBD8C3
+		else
+			stop
+		draw : fill
+
+		define
+			font-weight : normal
+			text-halo-width : 20%
+			text-halo-opacity : 0.9
+		if : water
+			define
+				min-zoom : 12
+				font-size : 12:10;20:20
+		elseif : hospital
+			define
+				min-zoom : 13
+				font-size : 12:10;20:20
+				text-color : #e5c6c3 black 50%
+//		elseif : cemetery
+//			define
+//				min-zoom : 13
+//				font-size : 12:10;20:20
+//				text-color : #d1d0cd black 50%
+		else
+			stop
+		draw : text
+
