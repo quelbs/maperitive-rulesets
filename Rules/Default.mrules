@@ -11,7 +11,19 @@
 //		- added names for parks, restaurants
 //		- added rendering of living_street, highway=construction and (railway|public_transport)=platform
 //		- added special rendering for tunnels
-
+// 2011-11-05: Updated by Michael <quelbs_at_gmail.com>
+//		- added hospital as area and render hospital name
+//		- different construction rendering to display type of constructed street
+//		- adjusted / added rendering of
+//		  - access=destination
+//		  - surrounding line for buildings
+//		  - bridges for various street types
+//		  - tracks with tracktype=grade1 as solid line
+//		- added
+//		  - housenumbers
+//		  - pedestrian areas
+//		  - light_rail
+//		- use mapnik style icons .p. instead of .n.
 
 features
 	points, areas
@@ -21,6 +33,7 @@ features
 		telephone : amenity=telephone
 		fire station : amenity=fire_station
 		police station : amenity=police
+		hospital : amenity=hospital
 		recycling : amenity=recycling
 		church : amenity=place_of_worship AND religion=christian
 		drinking water : amenity=drinking_water
@@ -39,10 +52,11 @@ features
 		tourism museum : tourism=museum
 		amenity pub : amenity=pub
 		amenity fast_food : amenity=fast_food
-
+		all points and areas :
 	// These are not shown on Mapnik
 		puffin : crossing_ref=puffin
 		memorial : historic=memorial
+
 
 	areas
 		beach : natural=beach
@@ -74,6 +88,7 @@ features
 		residential area : landuse=residential
 		aeroway apron : aeroway=apron
 		aeroway terminal : aeroway=terminal
+		highway pedestrian : highway=pedestrian
 
 	lines
 		oneway : oneway=yes OR oneway=true OR oneway=-1
@@ -83,19 +98,20 @@ features
 		canal : waterway=canal
 		drain : waterway=drain
 		railway rail : railway=rail
+		railway lightrail : railway=light_rail
 		platform : railway=platform OR public_transport=platform
 		line barrier : barrier=wall OR barrier=fence
-		highway motorway : highway=motorway
-		highway motorway link : highway=motorway_link
-		highway trunk : highway=trunk
-		highway trunk link: highway=trunk_link
-		highway primary link : highway=primary_link
-		highway primary : highway=primary
-		highway secondary : highway=secondary
-		highway tertiary : highway=tertiary
-		highway unclassified : highway=unclassified
-		highway residential : highway=residential
-		highway living_street : highway=living_street
+		highway motorway : highway=motorway OR (highway=construction AND construction=motorway)
+		highway motorway link : highway=motorway_link OR (highway=construction AND construction=motorway_link)
+		highway trunk : highway=trunk OR (highway=construction AND construction=trunk)
+		highway trunk link: highway=trunk_link OR (highway=construction AND construction=trunk_link)
+		highway primary link : highway=primary_link OR (highway=construction AND construction=primary_link)
+		highway primary : highway=primary OR (highway=construction AND construction=primary)
+		highway secondary : highway=secondary OR (highway=construction AND construction=secondary)
+		highway tertiary : highway=tertiary OR (highway=construction AND construction=tertiary)
+		highway unclassified : highway=unclassified OR (highway=construction AND construction=unclassified)
+		highway residential : highway=residential OR (highway=construction AND construction=residential)
+		highway living_street : highway=living_street OR (highway=construction AND construction=living_street)
 		highway construction : highway=construction
 		highway service : highway=service
 		highway pedestrian : highway=pedestrian
@@ -103,7 +119,8 @@ features
 		highway footway : highway=footway
 		highway cycleway : highway=cycleway
 		highway path : highway=path
-		highway private : access=private AND highway
+		highway access private : access=private AND highway
+		highway access destination : access=destination AND highway
 		highway steps : highway=steps
 		bridge foot : bridge=yes AND (foot=yes OR highway=footway)
 		historic citywalls : historic=citywalls OR historic=city_wall
@@ -132,7 +149,6 @@ features
 		place village : place=village
 		place hamlet : place=hamlet
 		place suburb : place=suburb
-		hospital : amenity=hospital
 		diy : shop=doityourself
 		hair dresser : shop=hairdresser
 		supermarket : shop=supermarket
@@ -238,6 +254,13 @@ rules
 					text-color : white black 50%
 			draw : text
 
+	target : all points and areas
+		define
+			min-zoom : 17
+			text : addrhousenumber
+			text-halo-width : 0
+			font-size : 8
+		draw : text
 	target : playground
 		define
 			fill-color : #CCFEF0
@@ -337,9 +360,25 @@ rules
 				fill-color : #DDECEC
 				line-style : dash
 				line-color : #DDECEC black 10%
+		elseif : *pedestrian
+			for : area
+				define
+					min-zoom : 14
+					fill-color : #EDEDED
+					line-color : #B1B1B1 black 20%
+					line-style : solid
 		else
 			stop
 		draw : fill
+		if : building
+			define
+				min-zoom : 15
+				line-style : solid
+				line-width : 1
+				line-color : #666
+			draw : line
+		for : amenity=hospital
+			stop
 		define
 			min-zoom : 17
 		draw : text
@@ -442,11 +481,6 @@ rules
 	target : railway rail
 		define
 			min-zoom : 13
-			line-color : gray
-			line-width : 2
-		draw : line
-		define
-			min-zoom : 13
 			line-style : dashlong
 			line-color : white
 			line-width : 2
@@ -461,13 +495,33 @@ rules
 			line-color : white black 30%
 			line-width : 6:1;8:1;12:1.5
 		draw : line
-
-	target : highway private
+	target : railway*
 		define
-			min-zoom : 15
-			line-width : 4
+			min-zoom : 13
+			line-color : gray
+			line-width : 2
+		draw : line
+
+	target : highway access*
+		define
+			min-zoom : 13
+			line-width : 13:1;15:2;18:4
 			line-style : dash
 			line-color : #F7D4D4
+		for : access=destination
+			define
+				line-color : lightblue white 50%
+		draw : line
+
+	target : highway construction
+		define
+			min-zoom : 13
+			line-width : 13:2;15:4;18:10
+			line-style : dot
+			line-color : yellow
+		for : construction=tertiary OR construction=secondary OR construction=primary
+			define
+				line-color : white
 		draw : line
 
 	target : highway*
@@ -582,6 +636,10 @@ rules
 			for : tunnel=yes
 				define
 					border-style : dot
+			for : bridge=yes
+				define
+					border-color : #000
+					border-width : 8%
 			draw : line
 			define
 				min-zoom : 8.5
@@ -603,6 +661,9 @@ rules
 			for : tunnel=yes
 				define
 					border-style : dot
+			for : bridge=yes
+				define
+					border-color : #000
 			draw : line
 			define
 				min-zoom : 10
@@ -618,38 +679,50 @@ rules
 			define
 				min-zoom : 13
 				line-color : white
-				line-width : 7:0.6;9:1;10:1.2;12:2.5;13:3;16:5;18:6
+				line-width : 12:0.5;13:1;15:3;18:5
 				border-style : solid
 				border-color : #FEFEB2 black 20%
 				border-width : 15%
 			for : tunnel=yes
 				define
 					border-style : dot
-			draw : line
-		elseif : *pedestrian
-			define
-				min-zoom : 13
-				line-color : #EDEDED
-				line-width : 7:0.6;9:1;10:1.2;12:2.5;13:3;16:5;18:6
-				border-style : solid
-				border-color : #B1B1B1 black 20%
-				border-width : 15%
-			for : tunnel=yes
+			for : bridge=yes
 				define
-					border-style : dot
+					border-color : #000
 			draw : line
+			draw : text
+		elseif : *pedestrian
+			for : not area
+				define
+					min-zoom : 13
+					line-color : #EDEDED
+					line-width : 7:0.6;9:1;10:1.2;12:2.5;13:3;16:5;18:6
+					border-style : solid
+					border-color : #B1B1B1 black 20%
+					border-width : 15%
+				for : tunnel=yes
+					define
+						border-style : dot
+				for : bridge=yes
+					define
+						border-color : #000
+				draw : line
+				draw : text
 
 		elseif : $regex("(.*residential)|(.*unclassified)")
 			define
 				min-zoom : 13
 				line-color : white
-				line-width : 12:1;13:1.5;15:10;18:12
+				line-width : 12:1;13:1.5;15:6;18:15
 				border-style : solid
-				border-color : white black 50%
-				border-width : 20%
+				border-color : white black 25%
+				border-width : 15%
 			for : tunnel=yes
 				define
 					border-style : dot
+			for : bridge=yes
+				define
+					border-color : #000
 			draw : line
 			define
 				min-zoom : 10
@@ -664,43 +737,15 @@ rules
 		elseif : *living_street
 			define
 				min-zoom : 13
-				line-color : white black 10%
-				line-width : 12:1;18:12
-				border-style : solid
-				border-color : white black 50%
-				border-width : 20%
+				line-color : white black 25%
+				line-width : 12:1;13:1.5;15:6;18:15
+				border-style : none
 			for : tunnel=yes
 				define
 					border-style : dot
-			draw : line
-			define
-				min-zoom : 10
-				max-zoom : 13
-				border-style : none
-				line-color : white black 25%
-			draw : line
-			define
-				min-zoom : 15
-				max-zoom : 20
-			draw : text
-		elseif : *construction
-			define
-				min-zoom : 13
-				line-color : white yellow 60%
-				line-width : 12:1;18:12
-				line-style : dot
-				border-style : solid
-				border-color : white black 30%
-				border-width : 20%
-			for : tunnel=yes
+			for : bridge=yes
 				define
-					border-style : dot
-			draw : line
-			define
-				min-zoom : 10
-				max-zoom : 13
-				border-style : none
-				line-color : white black 25%
+					border-color : #000
 			draw : line
 			define
 				min-zoom : 15
@@ -710,21 +755,29 @@ rules
 			define
 				min-zoom : 12.5
 				line-color : #9D7517
-				line-width : 1.5
+				line-width : 12.5:0.3;13:0.5;15:1;18:1.5
 				line-style : dash
 				border-style : solid
 				border-color : white
 				border-width : 100%
 				border-opacity : 0.3
+			for : tracktype=grade1
+				define
+					line-style : solid
+					line-width : 12.5:0.5;13:1;15:1.5;18:2
 			for : tunnel=yes
 				define
 					border-style : dot
+			for : bridge=yes
+				define
+					border-color : #000
 			draw : line
+			draw : text
 		elseif : *footway
 			define	
 				min-zoom : 13
 				line-color : #F68474
-				line-width : 1.5
+				line-width : 13:0.5;15:1;18:1.5
 				line-style : dot
 				border-style : solid
 				border-color : white
@@ -733,13 +786,16 @@ rules
 			for : tunnel=yes
 				define
 					border-style : dot
+			for : bridge=yes
+				define
+					border-color : #000
 			draw : line
-			draw : text		
+			draw : text
 		elseif : *cycleway
 			define	
 				min-zoom : 13
 				line-color : blue
-				line-width : 1.5
+				line-width : 13:0.5;15:1;18:1.5
 				line-style : dot
 				border-style : solid
 				border-color : white
@@ -748,12 +804,17 @@ rules
 			for : tunnel=yes
 				define
 					border-style : dot
+			for : bridge=yes
+				define
+					border-color : #000
+					border-opacity : 1
 			draw : line
+			draw : text
 		elseif : *path
 			define	
 				min-zoom : 13
 				line-color : #6E7C6D
-				line-width : 1.5
+				line-width : 13:0.5;15:1;18:1.5
 				line-style : dash
 				border-style : solid
 				border-color : white
@@ -762,7 +823,11 @@ rules
 			for : tunnel=yes
 				define
 					border-style : dot
+			for : bridge=yes
+				define
+					border-color : #000
 			draw : line
+			draw : text
 		else
 			stop
 
@@ -834,25 +899,25 @@ rules
 		
 	target: parking
 		define
-			icon-image : icons/SJJB/png/transport_parking.n.32.png
+			icon-image : icons/SJJB/png/transport_parking.p.32.png
 			min-zoom : 15
 			icon-width : 16
 		draw : icon
 	target: bus stop
 		define
-			icon-image : icons/SJJB/png/transport_bus_stop.n.32.png
+			icon-image : icons/SJJB/png/transport_bus_stop.p.32.png
 			min-zoom : 15
-			icon-width : 16
+			icon-width : 15:10;18:16
 		draw : icon
 	target: railway station
 		define
-			icon-image : icons/SJJB/png/transport_train_station.n.32.png
+			icon-image : icons/SJJB/png/transport_train_station.p.32.png
 			min-zoom : 15
-			icon-width : 16
+			icon-width : 15:10;18:20
 		draw : icon
 	target: postbox
 		define
-			icon-image : icons/SJJB/png/amenity_post_box.n.32.png
+			icon-image : icons/SJJB/png/amenity_post_box.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
@@ -870,56 +935,61 @@ rules
 		draw : icon
 	target: telephone
 		define
-			icon-image : icons/SJJB/png/amenity_telephone.n.32.png
+			icon-image : icons/SJJB/png/amenity_telephone.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
 
 	target: fire station
 		define
-			icon-image : icons/SJJB/png/amenity_firestation.n.32.png
-			min-zoom : 16
-			icon-width : 16
-		draw : icon				
-	target: hospital
-		define
-			icon-image : icons/SJJB/png/health_hospital.n.32.png
+			icon-image : icons/SJJB/png/amenity_firestation.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
+	target: hospital
+		define
+			icon-image : icons/SJJB/png/health_hospital.p.32.png
+			min-zoom : 15
+			icon-width : 16
+		draw : icon
+		define
+			min-zoom : 16
+			text-offset-vertical : 150%
+			text-color : #DA0092
+		draw : text
 	target: police station
 		define
-			icon-image : icons/SJJB/png/amenity_police.n.32
+			icon-image : icons/SJJB/png/amenity_police.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
 	target: cafe
 		define
-			icon-image : icons/SJJB/png/food_cafe.n.32.png
+			icon-image : icons/SJJB/png/food_cafe.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
 	target: recycling
 		define
-			icon-image : icons/SJJB/png/amenity_recycling.n.32.png
+			icon-image : icons/SJJB/png/amenity_recycling.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
 	target: supermarket
 		define
-			icon-image : icons/SJJB/png/shopping_supermarket.n.32.png
+			icon-image : icons/SJJB/png/shopping_supermarket.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
 	target: diy
 		define
-			icon-image : icons/SJJB/png/shopping_diy.n.32.png
+			icon-image : icons/SJJB/png/shopping_diy.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
 	target: convenience
 		define
-			icon-image : icons/SJJB/png/shopping_convenience.n.32.png
+			icon-image : icons/SJJB/png/shopping_convenience.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
@@ -932,7 +1002,7 @@ rules
 		draw : icon
 	target: church
 		define
-			icon-image : icons/SJJB/png/place_of_worship_christian3.glow.32.png
+			icon-image : icons/SJJB/png/place_of_worship_christian3.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		define
@@ -941,7 +1011,7 @@ rules
 		draw : icon
 	target: drinking water
 		define
-			icon-image : icons/SJJB/png/food_drinkingtap.n.32.png
+			icon-image : icons/SJJB/png/food_drinkingtap.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
@@ -952,7 +1022,7 @@ rules
 			text-offset-vertical : 150%
 		draw : text
 		define
-			icon-image : icons/SJJB/png/money_bank2.n.32.png
+			icon-image : icons/SJJB/png/money_bank2.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
@@ -963,31 +1033,32 @@ rules
 			text-offset-vertical : 150%
 		draw : text
 		define
-			icon-image : icons/SJJB/png/money_atm2.n.32.png
+			icon-image : icons/SJJB/png/money_atm2.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
 	target: restaurant
 		define
 			min-zoom : 17
-			text-color : #2B80FE
+			text-color : #734a08
 			text-offset-vertical : 150%
+			font-size : 10
 		draw : text
 		define
-			icon-image : icons/SJJB/png/food_restaurant.n.32.png
+			icon-image : icons/SJJB/png/food_restaurant.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
 	target: hair dresser
 		define
-			icon-image : icons/SJJB/png/shopping_hairdresser.n.32.png
+			icon-image : icons/SJJB/png/shopping_hairdresser.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
 
 	target: toilets
 		define
-			icon-image : icons/SJJB/png/amenity_toilets.n.32.png
+			icon-image : icons/SJJB/png/amenity_toilets.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
@@ -999,7 +1070,7 @@ rules
 		draw : icon
 	target: library
 		define
-			icon-image : icons/SJJB/png/amenity_library.n.32.png
+			icon-image : icons/SJJB/png/amenity_library.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
@@ -1010,10 +1081,16 @@ rules
 			text-offset-vertical : 150%
 		draw : text
 		define
-			icon-image : icons/SJJB/png/shopping_bakery.n.32.png
+			icon-image : icons/SJJB/png/shopping_bakery.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
+		define
+			min-zoom : 17
+			text-color : #AA33AA
+			text-offset-vertical : 150%
+			font-size : 10
+		draw : text
 	target: tree
 		define
 			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/tree2.png
@@ -1022,13 +1099,13 @@ rules
 		draw : icon
 	target: memorial
 		define
-			icon-image : icons/SJJB/png/tourist_memorial.n.32.png
+			icon-image : icons/SJJB/png/tourist_memorial.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
 	target: school
 		define
-			icon-image : icons/SJJB/png/education_school.n.32.png
+			icon-image : icons/SJJB/png/education_school.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
@@ -1057,7 +1134,7 @@ rules
 		draw : text
 		if : *hotel
 			define
-				icon-image : icons/SJJB/png/accommodation_hotel2.n.32.png
+				icon-image : icons/SJJB/png/accommodation_hotel2.p.32.png
 				min-zoom : 16
 				icon-width : 16
 
@@ -1069,7 +1146,7 @@ rules
 
 		elseif : *museum
 			define
-				icon-image : icons/SJJB/png/tourist_museum.n.32.png
+				icon-image : icons/SJJB/png/tourist_museum.p.32.png
 				min-zoom : 16
 				icon-width : 16
 		else
@@ -1087,10 +1164,10 @@ rules
 			icon-width : 16
 		if : *pub
 			define
-				icon-image : icons/SJJB/png/food_pub.n.32.png
+				icon-image : icons/SJJB/png/food_pub.p.32.png
 		elseif : *fast_food
 			define
-				icon-image : icons/SJJB/png/food_fastfood2.n.32.png
+				icon-image : icons/SJJB/png/food_fastfood2.p.32.png
 		else
 			stop
 		draw : icon
