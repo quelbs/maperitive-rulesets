@@ -52,6 +52,7 @@ features
 		tourism museum : tourism=museum
 		amenity pub : amenity=pub
 		amenity fast_food : amenity=fast_food
+		aerodrome : aeroway=aerodrome
 		all points and areas :
 	// These are not shown on Mapnik
 		puffin : crossing_ref=puffin
@@ -89,11 +90,14 @@ features
 		aeroway apron : aeroway=apron
 		aeroway terminal : aeroway=terminal
 		highway pedestrian : highway=pedestrian
+		orchard : landuse=orchard
+		farmland : landuse=farmland
+		quarry : landuse=quarry
 
 	lines
 		oneway : oneway=yes OR oneway=true OR oneway=-1
 		coastline : natural=coastline
-		river : waterway=river 
+		river : waterway=river
 		stream : waterway=stream
 		canal : waterway=canal
 		drain : waterway=drain
@@ -124,25 +128,26 @@ features
 		highway steps : highway=steps
 		bridge foot : bridge=yes AND (foot=yes OR highway=footway)
 		historic citywalls : historic=citywalls OR historic=city_wall
+		power_line : power=line OR power=minor_line
 
 		aeroway runway : aeroway=runway
 		aeroway taxiway : aeroway=taxiway
-		
+
 		boundary country : boundary=administrative AND (admin_level=2 OR admin_level=4) AND NOT natural=coastline
 		boundary province : boundary=administrative AND admin_level=6
 		boundary municipal : boundary=administrative AND admin_level=8
-		
+
 		contour major : contour[@isMulti(elevation, 50)]
 		contour minor : contour[@isMulti(elevation, 10) and not @isMulti(elevation, 50)]
 
 		gps tracks : gpstrack[]
 		gps routes : gpsroute[]
-		
+
 // Routes
 //		route ncn : relation[type=route AND route=bicycle AND network=ncn]
 		route byway : relation[type=route AND route=bicycle AND network="National Byway"]
 		route foot : relation[type=route AND route=foot]
-		
+
 	points
 		place city : place=city
 		place town : place=town
@@ -158,6 +163,7 @@ features
 		cafe : amenity=cafe
 		pharmacy : amenity=pharmacy
 		peak : natural=peak
+		powertower : power=tower OR power=pole
 
 		gps waypoints : gpswaypoint[]
 		gps trackpoints: gpstrack[].gpspoint[]
@@ -177,7 +183,7 @@ properties
 	font-stretch : 0.9
 	map.rendering.lflp.min-buffer-space : 5
 	map.rendering.lflp.max-allowed-corner-angle : 40
-	
+
 rules
 	target: gps tracks
 		define
@@ -229,7 +235,7 @@ rules
 		if : place*
 			define
 				font-weight : bold
-	
+
 			if : *city
 				define
 					font-size : 6:8;14:20
@@ -355,6 +361,24 @@ rules
 		elseif : aeroway*
 			define
 				fill-color : #E9D1FE
+		elseif : orchard
+			define
+				fill-color : #9fd790
+		elseif : farmland
+			define
+				fill-color : #e9d8be
+		elseif : aerodrome
+			define
+				fill-color : #e9e8e3
+				line-style : solid
+				line-color : #b3b3b0 black 10%
+		elseif : quarry
+			define
+				fill-color : white
+				line-style : solid
+				line-color : #b3b3b0 black 10%
+				fill-hatch : diagonalcross
+				fill-hatch-color : #cccccc
 		elseif : glacier
 			define
 				fill-color : #DDECEC
@@ -386,21 +410,21 @@ rules
 //		aeroway taxiway : aeroway=taxiway
 //		aeroway apron : aeroway=apron
 //		aeroway terminal : aeroway=terminal
-		
+
 	target : aeroway runway
 		define
 			min-zoom : 11
 			line-color : #BBBBCC
 			line-width : 11:2;15:20
 		draw : line
-		
+
 	target : aeroway taxiway
 		define
 			min-zoom : 11
 			line-color : #BBBBCC
 			line-width : 11:1;15:6
 		draw : line
-		
+
 	target : glacier
 		define
 			min-zoom : 10
@@ -417,10 +441,10 @@ rules
 			line-width : 1
 		draw : line
 //		draw : text
-			
+
 	target : boundary*
 		define
-			line-color : #9E1A99 
+			line-color : #9E1A99
 			line-opacity : 0.5
 		if : boundary country
 			define
@@ -471,6 +495,27 @@ rules
 			text-offset-vertical : 100%
 			text-align-vertical : near
 		draw : text
+
+	target : powertower
+		define
+			min-zoom: 14
+			shape : diamond
+			shape-size : 14:2;20:12
+			line-width : 1
+			fill-opacity: 0.1
+		draw : shape
+
+	target : power_line
+		define
+			min-zoom: 14
+			line-width: 1
+			line-color : #5c5c5c white 50%
+		for : power=line
+			define
+				line-color : #5c5c5c
+				min-zoom : 13
+				line-width: 1
+		draw : line
 
 	target : platform
 		define
@@ -528,9 +573,9 @@ rules
 		define
 			font-size : 15:7;18:10
 			font-weight : bold
-	
+
 		for : oneway=yes OR oneway=true
-			define 
+			define
 				min-zoom : 15
 				shape : custom
 				shape-def : 60,0,20,-40,20,-15,-60,-15,-60,15,20,15,20,40;Z
@@ -542,14 +587,14 @@ rules
 			for : oneway=-1
 				define
 					angle : 180
-			draw : shape 
-		
+			draw : shape
+
 		define
 			line-style : solid
 			line-join : round
 			line-start-cap : round
 			line-end-cap : round
-	
+
 		if : *motorway*
 			if : *link
 				define
@@ -562,7 +607,7 @@ rules
 				line-color : #849BBD
 				border-style : solid
 				border-color : #849BBD black 20%
-				border-width : 15%				
+				border-width : 15%
 			draw : line
 			define
 				min-zoom : 7
@@ -586,7 +631,7 @@ rules
 				shield-padding-top : 7
 				shield-padding-bottom : 7
 				shield-resize-mode : free
-			draw : shield			
+			draw : shield
 		elseif : *trunk*
 			define
 				min-zoom : 12
@@ -765,6 +810,18 @@ rules
 				define
 					line-style : solid
 					line-width : 12.5:0.5;13:1;15:1.5;18:2
+			for : tracktype=grade2
+				define
+					line-style: dashlong
+			for : tracktype=grade3
+				define
+					line-style: dash
+			for : tracktype=grade4
+				define
+					line-style: dashdot
+			for : tracktype=grade5
+				define
+					line-style: dashdotdot
 			for : tunnel=yes
 				define
 					border-style : dot
@@ -774,7 +831,7 @@ rules
 			draw : line
 			draw : text
 		elseif : *footway
-			define	
+			define
 				min-zoom : 13
 				line-color : #F68474
 				line-width : 13:0.5;15:1;18:1.5
@@ -792,7 +849,7 @@ rules
 			draw : line
 			draw : text
 		elseif : *cycleway
-			define	
+			define
 				min-zoom : 13
 				line-color : blue
 				line-width : 13:0.5;15:1;18:1.5
@@ -811,7 +868,7 @@ rules
 			draw : line
 			draw : text
 		elseif : *path
-			define	
+			define
 				min-zoom : 13
 				line-color : #6E7C6D
 				line-width : 13:0.5;15:1;18:1.5
@@ -883,20 +940,20 @@ rules
 			line-color : #B5D0D0
 			line-width : 12:1;17:8
 		draw : line
-		
+
 	target : drain
 		define
 			min-zoom : 13
 			line-color : #B5D0D0
 			line-width : 1
-		draw : line		
+		draw : line
 	target : stream
 		define
 			min-zoom : 13
 			line-color : #B5D0D0
 			line-width : 13:1;15:2
 		draw : line
-		
+
 	target: parking
 		define
 			icon-image : icons/SJJB/png/transport_parking.p.32.png
@@ -1187,7 +1244,7 @@ rules
 				min-zoom : 12
 				line-width : 1
 		draw : contour
-		
+
 	target: coastline
 		define
 			line-color : #B5D0D0
