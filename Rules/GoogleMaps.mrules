@@ -32,17 +32,17 @@ features
 
 		aeroway line runway : aeroway=runway
 		aeroway line taxiway : aeroway=taxiway
-		
+
 		railway : railway=rail AND @isFalse(disused) AND NOT service=yard AND @isFalse(noexit)
-		
+
 		motorway : highway=motorway
 		motorway link : highway=motorway_link
 		major road : @isOneOf(highway, trunk, trunk_link, primary, primary_link, secondary, tertiary)
 		minor road : @isOneOf(highway, unclassified, residential, service, pedestrian, living_street) OR (highway=track AND (@isOneOf(tracktype, grade1, grade2, grade3) OR NOT tracktype))
 		path : @isOneOf(highway, path, footway, steps) OR (highway=track AND @isOneOf(tracktype, grade4, grade5))
 
-		water line : waterway=stream
-		
+		water line : waterway=stream OR waterway=river
+
 	areas
 		water : natural=water OR natural=wetland OR waterway=riverbank OR waterway=stream OR landuse=reservoir OR landuse=basin
 		aeroway area : aeroway
@@ -53,7 +53,7 @@ features
 		forest : landuse=forest OR natural=wood
 		cemetery : landuse=cemetery
 
-		
+
 properties
 	map-background-color	: #F2EFE9
 	map-background-opacity	: 1
@@ -68,7 +68,7 @@ properties
 	font-stretch : 0.9
 	map.rendering.lflp.min-buffer-space : 5
 	map.rendering.lflp.max-allowed-corner-angle : 40
-	
+
 rules
 // icons
 	target: park
@@ -77,7 +77,13 @@ rules
 				icon-image : icons/SJJB/png/landuse_coniferous.p.32.png
 				min-zoom : 16
 				icon-width : 16
-			draw : icon
+		draw : icon
+	target: hospital
+		define
+			icon-image : icons/SJJB/png/health_hospital.p.32.png
+			min-zoom : 15
+			icon-width : 16
+		draw : icon
 	target: parking
 		define
 			icon-image : icons/SJJB/png/transport_parking.n.32.png
@@ -87,7 +93,7 @@ rules
 	target: railway station
 		define
 			icon-image : icons/SJJB/png/transport_train_station2.n.32.png
-			min-zoom : 17
+			min-zoom : 15
 			icon-width : 16
 		draw : icon
 	target: restaurant
@@ -109,7 +115,7 @@ rules
 		if : place*
 			define
 				//font-weight : bold
-	
+
 			if : *city
 				define
 					font-size : 8:14;11:17;14:18
@@ -152,13 +158,13 @@ rules
 		draw : text
 
 // lines
-			
+
 	target : boundary*
 		define
-			line-color : #818181 
+			line-color : #818181
 			line-width : 2
 			border-style : solid
-			border-color : #818181 
+			border-color : #818181
 			border-width : 110%
 			border-opacity : 0.4
 		draw : line
@@ -174,7 +180,7 @@ rules
 			define
 				line-width : 9:1;11:1;13:3;15:10
 		draw : line
-		
+
 	target : railway
 		define
 			min-zoom : 13
@@ -198,13 +204,12 @@ rules
 			line-color : #a1a1a1
 			line-width : 1
 		draw : line
-		
+
 	target : motorway
 		define
-			line-width : 7:1;13:3;15:4
+			line-width : 7:1;13:3;15:10
 			min-zoom : 7
 			line-color : #fd923a
-			line-width : 9
 			border-style : solid
 			border-color : #FFC345 black 20%
 			border-width : 20%
@@ -231,7 +236,7 @@ rules
 			line-color : #7488dd black 20%
 			line-width : 1
 		draw : shield
-		
+
 	target : motorway link
 		define
 			line-width : 7:1;13:2;15:3
@@ -244,7 +249,7 @@ rules
 			define
 				border-style : dot
 		draw : line
-			
+
 	target : major road
 		define
 			min-zoom : 8
@@ -253,7 +258,7 @@ rules
 			border-style : solid
 			border-color : #fffd8b black 20%
 			border-width : 1
-			
+
 		for : highway=tertiary
 			define
 				min-zoom : 11
@@ -282,12 +287,11 @@ rules
 
 		define
 			min-zoom : 13
-			text : text
 			font-size : 13:9.5
 			font-weight : normal
 			text-halo-color : #fffd8b
 		draw : text
-			
+
 	target : minor road
 		define
 			min-zoom : 10.5
@@ -304,6 +308,7 @@ rules
 			border-style : solid
 			border-color : #D4CCB8
 			border-width : 1
+			line-end-cap: round
 		for : tunnel=yes
 			define
 				border-style : dot
@@ -346,19 +351,19 @@ rules
 	target : water line
 		define
 			min-zoom : 10
-			line-color : #99B3CC
+			line-color : #A5BFDD
 			line-width : 14:1;16:5;20:10
-		draw : line	
-		
+		draw : line
+
 // landuse
-			
+
 	target : $featuretype(area)
 		define
 			line-style : none
 			line-width : 1
 		if : water
 			define
-				fill-color : #99B3CC
+				fill-color : #A5BFDD
 		elseif : aeroway area
 			define
 				fill-color : #d1d0cd
@@ -399,8 +404,10 @@ rules
 		elseif : hospital
 			define
 				min-zoom : 13
-				font-size : 12:10;20:20
-				text-color : #e5c6c3 black 50%
+				font-size : 10
+				text-color : #e5c6c3 black 70%
+				text-align-horizontal : near
+				text-offset-horizontal : 100%
 //		elseif : cemetery
 //			define
 //				min-zoom : 13
