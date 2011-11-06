@@ -38,8 +38,8 @@ features
 		motorway : highway=motorway
 		motorway link : highway=motorway_link
 		major road : @isOneOf(highway, trunk, trunk_link, primary, primary_link, secondary, tertiary)
-		minor road : @isOneOf(highway, unclassified, residential, service, pedestrian, living_street) OR (highway=track AND (@isOneOf(tracktype, grade1, grade2, grade3) OR NOT tracktype))
-		path : @isOneOf(highway, path, footway, steps) OR (highway=track AND @isOneOf(tracktype, grade4, grade5))
+		minor road : @isOneOf(highway, unclassified, residential, service, living_street) OR (highway=track AND (@isOneOf(tracktype, grade1, grade2, grade3) OR NOT tracktype))
+		path : @isOneOf(highway, path, footway, pedestrian, steps) OR (highway=track AND @isOneOf(tracktype, grade4, grade5))
 
 		water line : waterway=stream OR waterway=river
 
@@ -286,6 +286,7 @@ rules
 			draw : shield
 
 		define
+			text:name
 			min-zoom : 13
 			font-size : 13:9.5
 			font-weight : normal
@@ -336,13 +337,13 @@ rules
 			draw : shape
 	target : path
 		define
-			min-zoom : 14
+			min-zoom : 14.5
 			max-zoom : 20
-			line-color : white
+			line-color : #F8F6EF
 			border-style : solid
 			border-width : 1
 			border-color : #D4CCB8
-			line-width : 13:1;14:1;15:2
+			line-width : 14:1;15:1;15.5:4
 		for : tunnel=yes
 			define
 				border-style : dot
@@ -416,4 +417,3 @@ rules
 		else
 			stop
 		draw : text
-
