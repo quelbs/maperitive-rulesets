@@ -3,27 +3,7 @@
 
 // Created by Igor Brejc
 // Released under the Creative Commons Attribution-ShareAlike 3.0 License (http://creativecommons.org/licenses/by-sa/3.0/)
-
-// History:
-// --------
-// 2011-07-26: Updated by Michael <quelbs_at_gmail.com>
-//		- added icons for parks, parking, restaurants and railway
-//		- added names for parks, restaurants
-//		- added rendering of living_street, highway=construction and (railway|public_transport)=platform
-//		- added special rendering for tunnels
-// 2011-11-05: Updated by Michael <quelbs_at_gmail.com>
-//		- added hospital as area and render hospital name
-//		- different construction rendering to display type of constructed street
-//		- adjusted / added rendering of
-//		  - access=destination
-//		  - surrounding line for buildings
-//		  - bridges for various street types
-//		  - tracks with tracktype=grade1 as solid line
-//		- added
-//		  - housenumbers
-//		  - pedestrian areas
-//		  - light_rail
-//		- use mapnik style icons .p. instead of .n.
+// Updates by Michael <quelbs_at_gmail.com>
 
 features
 	points, areas
@@ -126,6 +106,7 @@ features
 		highway access private : access=private AND highway
 		highway access destination : access=destination AND highway
 		highway steps : highway=steps
+		pier : man_made=pier
 		bridge foot : bridge=yes AND (foot=yes OR highway=footway)
 		historic citywalls : historic=citywalls OR historic=city_wall
 		power_line : power=line OR power=minor_line
@@ -164,6 +145,9 @@ features
 		pharmacy : amenity=pharmacy
 		peak : natural=peak
 		powertower : power=tower OR power=pole
+		info : information=guidepost
+		bollard : barrier=bollard
+		lift_gate : barrier=lift_gate
 
 		gps waypoints : gpswaypoint[]
 		gps trackpoints: gpstrack[].gpspoint[]
@@ -496,24 +480,48 @@ rules
 			text-align-vertical : near
 		draw : text
 
+	target : info
+		define
+			min-zoom : 16
+			text : "i"
+			text-color : #734A08
+			font-size : 20
+			font-family : Times New Roman
+			text-halo-width : 0
+		draw : text
+	target : lift_gate
+		define
+			min-zoom : 16
+			shape : custom
+			shape-def : f:#3E3E3E;p:#3E3E3E;-1,1;-1,-3;-3,-3;-3,3;-1,3;-1,2;4,2;4,1;Z
+			shape-size : 14:7;20:12
+			line-width : 1
+		draw : shape
+	target : bollard
+		define
+			min-zoom : 16
+			fill-color : #7D7D7D
+			line-style : none
+			shape-size : 16:1;18:2
+		draw : shape
 	target : powertower
 		define
-			min-zoom: 14
-			shape : diamond
-			shape-size : 14:2;20:12
+			min-zoom: 13
+			shape : custom
+			shape-def : m:-1,1;l:1,1,1,-1,-1,-1,-1,1,1,-1;m:-1,-1;l:1,1
+			shape-size : 14:2;20:9
 			line-width : 1
-			fill-opacity: 0.1
 		draw : shape
 
 	target : power_line
 		define
-			min-zoom: 14
+			min-zoom: 16
 			line-width: 1
 			line-color : #5c5c5c white 50%
 		for : power=line
 			define
 				line-color : #5c5c5c
-				min-zoom : 13
+				min-zoom : 14
 				line-width: 1
 		draw : line
 
@@ -899,6 +907,11 @@ rules
 			fill-color : #F98072
 			line-style : none
 		draw : shape
+	target : pier
+		define
+			line-color : #F1EEE8
+			line-width : 1:1;20:8
+		draw : line
 
 	target : line barrier
 		define
@@ -968,22 +981,24 @@ rules
 		draw : icon
 	target: railway station
 		define
-			icon-image : icons/SJJB/png/transport_train_station.p.32.png
-			min-zoom : 15
-			icon-width : 15:10;18:20
-		draw : icon
+			min-zoom : 12
+			shape : square
+			line-color : #7981B0
+			fill-color : #7981B0
+			shape-size : 12:5;18:8
+		draw : shape
+		define
+			min-zoom : 14
+			font-size : 12
+			text-color : #7981B0
+			text-offset-vertical : -150%
+		draw : text
 	target: postbox
 		define
 			icon-image : icons/SJJB/png/amenity_post_box.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
-		define
-			min-zoom : 17
-			text : collection_times
-			text-offset-vertical : 200%
-		draw : text
-
 	target: postoffice
 		define
 			icon-image : icons/SJJB/png/amenity_post_office.p.32.png
@@ -1075,7 +1090,7 @@ rules
 	target: bank
 		define
 			min-zoom : 17
-			text-color : #2B80FE
+			text-color : #000000
 			text-offset-vertical : 150%
 		draw : text
 		define
@@ -1086,7 +1101,7 @@ rules
 	target: atm
 		define
 			min-zoom : 17
-			text-color : #2B80FE
+			text-color : #000000
 			text-offset-vertical : 150%
 		draw : text
 		define
@@ -1214,6 +1229,7 @@ rules
 		define
 			min-zoom : 17
 			text-color : #856951
+			text-offset-vertical : 150%
 		draw : text
 
 		define
