@@ -58,12 +58,12 @@ features
 //		hiking route major : relation[type=route route=foot @isOneOf(network, iwn, nwn)]
 //		hiking route minor : relation[type=route route=foot @isOneOf(network, rwn, lwn)]
 //		hiking route other : trailblazed=yes
-		foot path major : (highway=footway OR highway=path) AND (NOT trail_visibility OR @isOneOf(trail_visibility, excellent, good))
-		foot path minor : (highway=footway OR highway=path) AND (trail_visibility AND NOT @isOneOf(trail_visibility, excellent, good))
-		road major : highway=motorway OR highway=trunk OR highway=primary OR highway=secondary OR highway=tertiary
-		road minor : highway=residential OR highway=unclassified
-		track major : (highway=track AND (tracktype=grade1 OR tracktype=grade2 OR NOT tracktype))
-		track minor : (highway=track AND (tracktype=grade3 OR tracktype=grade4 OR tracktype=grade5)) 
+		foot path major : @isOneOf(highway,pedestrian,footway,path,steps) AND (NOT trail_visibility OR @isOneOf(trail_visibility, excellent, good))
+		foot path minor : @isOneOf(highway,pedestrian,footway,path,steps) AND (trail_visibility AND NOT @isOneOf(trail_visibility, excellent, good))
+		road major : @isOneOf(highway,motorway,motorway_link,trunk,trunk_link,primary,primary_link,secondary,secondary_link,tertiary)
+		road minor : @isOneOf(highway,residential,unclassified,living_street,construction,service)
+		track major: highway=track and (@isOneOf(tracktype,grade1,grade2) OR NOT tracktype)
+		track : highway=track
 		railway : railway=rail
 		power line : @isOneOf(power, line, minor_line)
 		stream : waterway=stream or waterway=river
@@ -269,7 +269,13 @@ rules
 
 	target : railway
 		define
-			line-width : 9:1;10:2;13:2;14:3
+			line-width : 9:1;10:2;13:2;14:5
+			line-color:black
+		draw : line
+		define
+			min-zoom : 14
+			line-width:1
+			line-color:white
 		draw : line
 		
 	target : road *
@@ -300,15 +306,6 @@ rules
 		
 	target : track major
 		define
-			min-zoom : 14
-			line-color : white
-			line-width : 13.9:1;14:2;16:3
-			border-style : solid
-			border-color : black
-			border-width : 60%
-			border-opacity : 0.8
-		draw : line
-		define
 			min-zoom : 12
 			max-zoom : 14
 			line-color : black
@@ -316,15 +313,38 @@ rules
 			border-style : none
 		draw : line
 
-	target : track minor
+	target : track
 		define
 			min-zoom : 14.5
-			line-color : white
+			line-color : black
 			line-width : 13.9:1;14:2;16:3
 			border-style : solid
-			border-color : black
+			border-color : black white 80%
 			border-width : 60%
 			border-opacity : 0.8
+		for : tracktype=grade1 or not tracktype
+			define
+				min-zoom : 14
+				line-style : solid
+		for : tracktype=grade2
+			define
+				min-zoom : 14
+				line-style: dashlong
+		for : tracktype=grade3
+			define
+				line-style: dash
+		for : tracktype=grade4
+			define
+				line-style: dashdot
+		for : tracktype=grade5
+			define
+				line-style: dashdotdot
+		for : tunnel=yes
+			define
+				border-style : dot
+		for : bridge=yes
+			define
+				border-color : #000
 		draw : line
 
 	target : foot path*
