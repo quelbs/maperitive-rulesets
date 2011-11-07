@@ -4,6 +4,7 @@
 
 // Created by Igor Brejc
 // Released under the Creative Commons Attribution-ShareAlike 3.0 License (http://creativecommons.org/licenses/by-sa/3.0/)
+// Icons used: Map icons CC-0 from SJJB Management (http://www.sjjb.co.uk/mapicons)
 
 // History:
 // --------
@@ -16,11 +17,11 @@
 // TODO (stuff still missing, will be added soon)
 // join all hiking paths
 // natural reserve
-// bus stop "D:\Programs\Geo\Maperitive\Icons\SJJB\png\transport_bus_station.glow.32.png"
-// parking "D:\Programs\Geo\Maperitive\Icons\SJJB\png\transport_parking.n.32.png"
+// bus stop "Icons/SJJB/transport_bus_stop.p.16.png"
+// parking "Icons/SJJB/transport_parking.p.16.png"
 // drinking water
 // hunting stand
-// viewpoint "D:\Programs\Geo\Maperitive\Icons\SJJB\png\tourist_view_point.p.32.png"
+// viewpoint "Icons/SJJB/tourist_view_point.p.16.png"
 // hiking routes (SLO)
 // surface unpaved
 // marsh
@@ -113,7 +114,7 @@ rules
 
 	target: alpine hut
 		define
-			icon-image : icons/SJJB/png/accommodation_alpinehut.glow.32.png
+			icon-image : icons/SJJB/accommodation_alpinehut.p.16.png
 			icon-width : 11:16;14:34
 			min-zoom : 11
 		draw : icon
@@ -152,14 +153,14 @@ rules
 		
 	target: shelter
 		define
-			icon-image : icons/SJJB/png/accommodation_shelter2.n.32.png
+			icon-image : icons/SJJB/accommodation_shelter2.p.16.png
 			icon-width : 14:16;15:24
 			min-zoom : 14
 		draw : icon
 		
 	target: food
 		define
-			icon-image : icons/SJJB/png/food_restaurant.n.32.png
+			icon-image : icons/SJJB/food_restaurant.p.16.png
 			icon-width : 14:16;20:30
 			min-zoom : 14
 		draw : icon
@@ -176,7 +177,7 @@ rules
 		
 	target: church
 		define
-			icon-image : icons/SJJB/png/place_of_worship_christian3.glow.32.png
+			icon-image : icons/SJJB/place_of_worship_christian.p.16.png
 			icon-width : 14:16;20:30
 			min-zoom : 14
 		draw : icon

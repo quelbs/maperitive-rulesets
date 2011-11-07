@@ -3,6 +3,8 @@
 
 // Created by Igor Brejc
 // Released under the Creative Commons Attribution-ShareAlike 3.0 License (http://creativecommons.org/licenses/by-sa/3.0/)
+// Updates by Michael <quelbs_at_gmail.com>
+// Icons used: Map icons CC-0 from SJJB Management (http://www.sjjb.co.uk/mapicons)
 
 // History:
 // --------
@@ -74,39 +76,33 @@ rules
 	target: park
 		for : leisure=park
 			define
-				icon-image : icons/SJJB/png/landuse_coniferous.p.32.png
+				icon-image : icons/SJJB/landuse_coniferous.p.16.png
 				min-zoom : 16
 				icon-width : 16
 		draw : icon
 	target: hospital
 		define
-			icon-image : icons/SJJB/png/health_hospital.p.32.png
+			icon-image : icons/SJJB/health_hospital.p.16.png
 			min-zoom : 15
-			icon-width : 16
-		draw : icon
-	target: parking
-		define
-			icon-image : icons/SJJB/png/transport_parking.n.32.png
-			min-zoom : 17
 			icon-width : 16
 		draw : icon
 	target: railway station
 		define
-			icon-image : icons/SJJB/png/transport_train_station2.n.32.png
+			icon-image : icons/SJJB/transport_train_station2.n.16.png
 			min-zoom : 15
 			icon-width : 16
 		draw : icon
 	target: restaurant
 		define
-			icon-image : icons/SJJB/png/food_restaurant.glow.32.png
+			icon-image : icons/SJJB/food_restaurant.glow.16.png
 			icon-width : 14
 			min-zoom : 17
 		for : amentiy=pub
 			define
-				icon-image : icons/SJJB/png/food_pub.glow.32.png
+				icon-image : icons/SJJB/food_pub.glow.16.png
 		for : amenity=bar
 			define
-				icon-image : icons/SJJB/png/food_bar.glow.32.png
+				icon-image : icons/SJJB/food_bar.glow.16.png
 		draw : icon
 // texts
 	target : $featuretype(point)
