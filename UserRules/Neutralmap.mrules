@@ -12,7 +12,7 @@ features
 		waterway river : waterway=river OR waterway=canal
 		waterway drain : waterway=drain
 		aeroway : aeroway=runway OR aeroway=taxiway
-		
+
 		highway motorway : highway=motorway
 		highway motorway link : highway=motorway_link
 		highway trunk : highway=trunk
@@ -33,35 +33,35 @@ features
 //		highway private : access=private AND highway
 		highway steps : highway=steps
 		route ferry : route=ferry
-		
+
 		boundary country : boundary=administrative AND (admin_level=2 OR admin_level=4)
 		boundary province : boundary=administrative AND (admin_level=6)
 		boundary municipal : boundary=administrative AND (admin_level=8)
-		
+
 		contours major : contour[elevation_multiplier=50]
 		contours minor : contour[elevation_multiplier=10 and not elevation_multiplier=50]
-		
+
 	areas
 		water : natural=water OR waterway=riverbank OR landuse=reservoir OR natural=wetland
 		forest : landuse=forest OR natural=wood
 		leisure : leisure=park OR leisure=playground OR tourism=zoo OR leisure=golf_course OR leisure=common OR landuse=farm OR landuse=farmland OR leisure=nature_reserve
-		
+
 		graveyard : amenity=grave_yard OR landuse=cemetery
-		
+
 		landuse hospital : amenity=hospital
 		landuse academic : amenity=university OR amenity=college OR amenity=school
 		landuse retail : landuse=retail
 		landuse industrial : landuse=industrial OR landuse=railway OR aeroway=aerodrome OR landuse=military OR military=airfield
 		landuse commercial : landuse=commercial
 		landuse residential : landuse=residential
-		
+
 		aeroway apron: aeroway=apron
-		
+
 		building : building=yes  OR aeroway=terminal
-		
+
 		land : natural=island OR natural=land OR place=island
 		place : place=town OR place=city
-		
+
 	points
 		rail station : railway=station
 		place city : place=city
@@ -69,10 +69,10 @@ features
 		place village : place=village
 		place hamlet : place=hamlet
 		place suburb : place=suburb
-		
+
 properties
-	map-background-color : #F5F5F5
-	map-background-opacity	: 1
+	map-background-color: #ddd
+	map-background-opacity: 1
 	map-sea-color : white
 	font-weight : bold
 	font-family : Verdana
@@ -94,10 +94,10 @@ rules
 			border-color : #CCCCCC black 50%
 			border-width : 25%
 		draw : line
-		
-		
 
-		
+
+
+
 	target : $featuretype(point)
 		if : place*
 			define
@@ -132,9 +132,9 @@ rules
 		define
 			font-size : 15:7;18:10
 			font-weight : bold
-	
+
 		for : oneway=yes AND oneway=true
-			define 
+			define
 				min-zoom : 15
 				shape : custom
 				shape-def : 60,0,20,-40,20,-15,-60,-15,-60,15,20,15,20,40;Z
@@ -146,14 +146,14 @@ rules
 			for : oneway=-1
 				define
 					angle : 180
-			draw : shape 
-		
+			draw : shape
+
 		define
 			line-style : solid
 			line-join : round
 			line-start-cap : round
 			line-end-cap : round
-	
+
 		if : *motorway*
 			if : *link
 				define
@@ -163,7 +163,7 @@ rules
 				define
 					min-zoom : 5
 					line-width : 7:1.5;13:3;15:4;18:6
-			define				
+			define
 				line-color : #ffa824
 				text-color : #ffa824 black 50%
 				//text-halo-color: red
@@ -172,7 +172,7 @@ rules
 				font-size : 8:8;20:20
 				text : ref
 			draw : text
-			draw : line			
+			draw : line
 			define
 				min-zoom : 5
 				max-zoom : 12
@@ -227,14 +227,14 @@ rules
 		elseif : *service OR *pedestrian
 			define
 				min-zoom : 14
-				line-color : #E4E4E4
+				line-color : #aaa
 				line-width : 13:0.1;15:0.2;18:1
 			draw : line
 
 		elseif : $regex("(.*residential)|(.*unclassified)|(.*road)")
 			define
 				min-zoom : 11.5
-				line-color : #E4E4E4
+				line-color : #aaa
 				line-width : 13:0.1;15:0.5;18:2
 //				border-style : none
 //				border-color : #EAEAEA black 50%
@@ -247,12 +247,12 @@ rules
 		elseif : $regex("(.*track)|(.*footway)|(.*path)|(.*steps)")
 			define
 				min-zoom : 14
-				line-color : #E4E4E4
+				line-color : #aaa
 				line-width : 13:0.1;15:0.2;18:1
 				line-style : dash
 			draw : line
 		elseif : *cycleway
-			define	
+			define
 				min-zoom : 13
 				line-color : blue
 				line-width : 1.5
@@ -264,7 +264,7 @@ rules
 			draw : line
 		else
 			stop
-		
+
 	target : route ferry
 		define
 			min-zoom : 9
@@ -272,7 +272,7 @@ rules
 			line-width : 10:0.1;13:0.3;15:0.5;18:3
 			line-style : dash
 		draw : line
-		
+
 	target : aeroway
 		define
 			min-zoom : 10
@@ -282,9 +282,9 @@ rules
 		for: aeroway=taxiway
 			define
 				line-width : 10:0.1;15:4
-		
+
 		draw : line
-		
+
 	target : waterway*
 		define
 			min-zoom : 11
@@ -311,10 +311,10 @@ rules
 				min-zoom : 12
 				line-width : 1
 		draw : contour
-		
+
 	target : boundary*
 		define
-			line-color : #9E1A99 
+			line-color : #9E1A99
 			line-opacity : 0.5
 		if : boundary country
 			define
@@ -347,7 +347,7 @@ rules
 			font-weight : normal
 		draw : line
 		draw : text
-		
+
 	target : $featuretype(area)
 		define
 			fill-color : #F0F0F0
@@ -358,21 +358,21 @@ rules
 			define
 				min-zoom : 14
 				fill-color:#e3dcc1
-				
+
 		if : forest
 			define
 				min-zoom : 5
 				fill-color : #C5FF5B black 30%
-				fill-opacity: .3
+				fill-opacity: 0.3
 		if : $regex("(.*leisure)|(.*graveyard)")
 			define
 				min-zoom : 13
 				fill-color : #C5FF5B black 10%
-				fill-opacity: .2			
+				fill-opacity: 0.2
 		if : land
 			define
 				min-zoom : 7
-				fill-color : #F5F5F5				
+				fill-color : #F5F5F5
 		if : water
 			define
 				min-zoom : 7
@@ -380,8 +380,8 @@ rules
 				fill-opacity: 1
 			for : natural=wetland
 				define
-					fill-opacity: .7
-			
+					fill-opacity: 0.7
+
 		if : aeroway apron
 			define
 				min-zoom : 13
