@@ -1,0 +1,23 @@
+// origin: https://wiki.openstreetmap.org/wiki/User:Andrewmk/Maperitive_Rules/Blueprint
+
+features
+	lines
+		all lines : 
+	areas
+		all areas : 
+
+properties
+	map-background-color : #303099
+	
+rules
+	target : all areas
+		define
+			fill-color : #303099
+			fill-opacity : 1
+		draw : fill
+
+	target : all lines
+		define
+			line-color : #888888
+			line-width : 2
+		draw : line

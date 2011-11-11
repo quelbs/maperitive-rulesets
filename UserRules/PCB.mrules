@@ -1,0 +1,30 @@
+// origin: https://wiki.openstreetmap.org/wiki/User:Andrewmk/Maperitive_Rules/PCB
+
+features
+	lines
+		all lines : 
+	areas
+		black : landuse=village_green OR building OR amenity=parking
+		all areas : 
+
+properties
+	map-background-color : #181818
+
+rules
+	target : black
+		define
+			fill-color : #030603
+			fill-opacity : 1
+		draw : fill
+
+	target : all areas
+		define
+			fill-color : #306030
+			fill-opacity : 0.1
+		draw : fill
+
+	target : all lines
+		define
+			line-color : #fbe56b
+			line-width : 2
+		draw : line

@@ -1,0 +1,2209 @@
+// origin: https://wiki.openstreetmap.org/wiki/User:Z13/hc.mrules_Version_2011-03-06
+
+// Copied from Maperitive default rules. 
+// Modified for higher contrast for use PDA outdoor 
+// Some stuff added.
+// User: z13 14 October 2010
+
+
+features
+	points, areas
+
+
+		tree : natural=tree
+		bus stop : highway=bus_stop OR amenity=bus_station
+		// z13
+		railway tram_stop : railway=tram_stop
+		railway station : railway=station OR railway=halt
+		railway level_crossing : railway=level_crossing
+		mini roundabout : highway=mini_roundabout
+		turning circle : highway=turning_circle
+
+		barrier gate : node[barrier=gate]
+		barrier lift_gate : node[barrier=lift_gate]
+		barrier bollard : node[barrier=bollard]
+		barrier all : node[barrier]
+
+		// z13
+		traffic signals : highway=traffic_signals
+
+// tourism 
+
+		tourism viewpoint : tourism=viewpoint
+		tourism hotel : node[tourism=hotel] area[tourism=hotel]
+		tourism museum : node[tourism=museum] area[tourism=museum]
+		tourism information office : tourism=information AND information=office
+		tourism information : tourism=information AND NOT information=office
+		tourism picnic_site : tourism=picnic_site 
+
+
+		memorial : historic=memorial
+
+// amenity
+		amenity parking : amenity=parking
+		// 2011-03-06
+		amenity fuel : amenity=fuel
+		amenity postbox : amenity=post_box
+		amenity postoffice : amenity=post_office
+		amenity telephone : amenity=telephone
+		amenity fire station : amenity=fire_station
+		amenity police station : amenity=police
+		amenity recycling : amenity=recycling
+		amenity place_of_worship_christian : amenity=place_of_worship AND religion=christian
+		amenity place_of_worship_other : amenity=place_of_worship AND NOT religion=christian
+		amenity drinking water : amenity=drinking_water
+		amenity bank : amenity=bank
+		amenity atm : amenity=atm
+		amenity toilets : amenity=toilets
+		amenity library : amenity=library
+		amenity pub : amenity=pub
+		amenity fast_food : amenity=fast_food
+		amenity restaurant : amenity=restaurant
+		amenity cafe : amenity=cafe
+
+		amenity courthouse : amenity=courthouse 
+		amenity prison : amenity=prison 
+
+
+		amenity school : [amenity=school OR amenity=university OR amenity=college] area[amenity=school OR amenity=university OR amenity=college]
+		amenity kindergarten : amenity=kindergarten 
+
+		amenity doctors : amenity=doctors
+		amenity dentist : amenity=dentist
+		amenity veterinary : amenity=veterinary
+
+		amenity bench : amenity=bench 
+		amenity shelter : amenity=shelter
+	
+		amenity townhall : amenity=townhall
+		amenity theater : amenity=theatre 
+
+		amenity hospital : amenity=hospital
+		amenity pharmacy : amenity=pharmacy
+
+		amenity all : [amenity]
+
+// shop
+
+		shop alcohol : shop=alcohol 
+		shop anime : shop=anime 
+		shop art : shop=art 
+		shop bakery : shop=bakery	
+		shop bathroom_furnishing : shop=bathroom_furnishing
+		shop beauty : shop=beauty 
+		shop bed : shop=bed 
+		shop beverages : shop=beverages 
+		shop bicycle : shop=bicycle 
+		shop books : shop=books 
+		shop boutique : shop=boutique 
+		shop butcher : shop=butcher 
+		shop car : shop=car 
+		shop car_repair : shop=car_repair
+		shop charity : shop=charity 
+		shop chemist : shop=chemist 
+		shop clothes : shop=clothes 
+		shop computer : shop=computer 
+		shop confectionery : shop=confectionery 
+		shop convenience : shop=convenience
+		shop copyshop : shop=copyshop 
+		shop curtain : shop=curtain 
+		shop deli : shop=deli 
+		shop department_store : shop=department_store 
+		shop dive : shop=dive 
+		shop doityourself : shop=doityourself
+		shop drugstore  : shop=drugstore  
+		shop dry_cleaning : shop=dry_cleaning
+		shop electronics : shop=electronics 
+		shop erotic : shop=erotic 
+		shop fabric : shop=fabric 
+		shop farm : shop=farm 
+		shop florist : shop=florist 
+		shop frame : shop=frame 
+		shop funeral_directors : shop=funeral_directors
+		shop furnace : shop=furnace 
+		shop furniture : shop=furniture 
+		shop garden_centre : shop=garden_centre
+		shop general : shop=general 
+		shop gift : shop=gift 
+		shop glaziery : shop=glaziery 
+		shop greengrocer : shop=greengrocer 
+		shop hair dresser : shop=hairdresser
+		shop hardware : shop=hardware 
+		shop hearing_aids : shop=hearing_aids
+		shop hifi : shop=hifi 
+		shop hunting : shop=hunting 
+		shop interior_decoration : shop=interior_decoration
+		shop jewelry : shop=jewelry 
+		shop kiosk : shop=kiosk 
+		shop kitchen : shop=kitchen 
+		shop laundry : shop=laundry 
+		shop mall : shop=mall 
+		shop massage : shop=massage 
+		shop mobile_phone : shop=mobile_phone
+		shop money_lender : shop=money_lender
+		shop motorcycle : shop=motorcycle 
+		shop musical_instrument : shop=musical_instrument
+		shop newsagent : shop=newsagent 
+		shop optician : shop=optician 
+		shop organic : shop=organic 
+		shop outdoor : shop=outdoor 
+		shop paint : shop=paint 
+		shop pawnbroker : shop=pawnbroker 
+		shop pet : shop=pet 
+		shop radiotechnics : shop=radiotechnics 
+		shop seafood : shop=seafood 
+		shop second_hand : shop=second_hand
+		shop shoes : shop=shoes 
+		shop sports : shop=sports 
+		shop stationery : shop=stationery 
+		shop supermarket : shop=supermarket
+		shop tattoo : shop=tattoo 
+		shop tobacco : shop=tobacco 
+		shop toys : shop=toys 
+		shop trade : shop=trade 
+		shop vacant : shop=vacant 
+		shop vacuum_cleaner : shop=vacuum_cleaner
+		shop variety_store : shop=variety_store
+		shop video : shop=video 
+
+		// other
+		shop all : node[shop] area[shop]
+
+		// 2011-03-05
+		craft all : node[craft] area[craft]
+
+		// 2011-03-05
+		addr housenumber : node[addr:housenumber] area[addr:housenumber]
+
+		// 2011-03-05 Powerlines
+		power generator : power=generator
+		power station : power=station
+		power substation : power=sub_station
+
+		power pole : power=pole
+		power tower : power=tower
+
+
+
+	areas
+		building : building=yes
+		water : natural=water OR waterway=riverbank OR landuse=reservoir OR landuse=basin
+
+		forest : landuse=forest OR natural=wood
+
+		fell : natural=fell
+		glacier : natural=glacier
+
+		national park : boundary=national_park
+
+		meadow : natural=meadow OR landuse=meadow
+		nature reserve : leisure=nature_reserve
+		playground : leisure=playground
+		track : leisure=track
+
+		military : landuse=military OR military=barracks 
+		leisure park : leisure=park
+		leisure garden : leisure=garden
+		leisure pitch : leisure=pitch
+		leisure stadium : leisure=stadium
+
+		graveyard : amenity=grave_yard OR landuse=cemetery
+		village green : landuse=village_green
+		landuse farmland : landuse=farm OR landuse=farmland
+		landuse grass : landuse=grass
+		landuse allotments : landuse=allotments
+		landuse retail : landuse=retail
+		landuse industrial : landuse=industrial
+		landuse commercial : landuse=commercial
+		landuse residential : landuse=residential
+
+		aeroway apron : aeroway=apron
+		aeroway terminal : aeroway=terminal
+		
+	lines
+		coastline : natural=coastline
+
+		river : waterway=river 
+		stream : waterway=stream
+		canal : waterway=canal
+		drain : waterway=drain
+
+		railway : railway=rail
+
+		// z13
+		tram : railway=tram
+
+		line barrier : barrier=wall OR barrier=fence
+
+		highway motorway : highway=motorway
+		highway motorway link : highway=motorway_link
+		highway trunk : highway=trunk
+		highway trunk link: highway=trunk_link
+		highway primary link : highway=primary_link
+		highway primary : highway=primary
+		highway secondary : highway=secondary
+		highway tertiary : highway=tertiary
+		highway unclassified : highway=unclassified
+		highway residential : highway=residential
+		highway service : highway=service
+		highway pedestrian : highway=pedestrian
+		highway track : highway=track
+		highway footway : highway=footway
+		highway cycleway : highway=cycleway
+		highway path : highway=path
+		highway private : access=private AND highway
+		highway steps : highway=steps
+		// z13 13-10-2010
+		highway livingstreet : highway=living_street 
+		// z13 14-10-2010
+		highway road : highway=road
+
+// z13 09-10-2010
+		construction motorway : highway=construction AND construction=motorway
+		construction motorway link : highway=construction AND construction=motorway_link
+		construction trunk : highway=construction AND construction=trunk
+		construction trunk link: highway=construction AND construction=trunk_link
+		construction primary link : highway=construction AND construction=primary_link
+		construction primary : highway=construction AND construction=primary
+		construction secondary : highway=construction AND construction=secondary
+		construction tertiary : highway=construction AND construction=tertiary
+		construction unclassified : highway=construction AND construction=unclassified
+		construction residential : highway=construction AND construction=residential
+		construction service : highway=construction AND construction=service
+		construction pedestrian : highway=construction AND construction=pedestrian
+		construction track : highway=construction AND construction=track
+		construction footway : highway=construction AND construction=footway
+		construction cycleway : highway=construction AND construction=cycleway
+		construction path : highway=construction AND construction=path
+		construction steps : highway=construction AND construction=steps
+		construction livingstreet : highway=construction AND construction=living_street
+		// z13 14-10-2010
+		construction road : highway=road AND construction=road
+
+
+
+//		bridge foot : bridge=yes AND (foot=yes OR highway=footway)
+		historic citywalls : historic=citywalls OR historic=city_wall
+
+		aeroway runway : aeroway=runway
+		aeroway taxiway : aeroway=taxiway
+		
+		boundary country : boundary=administrative AND (admin_level=2 OR admin_level=4)
+		boundary province : boundary=administrative AND admin_level=6
+		boundary municipal : boundary=administrative AND admin_level=8
+		
+		contours major : contour[elevation_multiplier=50]
+		contours minor : contour[elevation_multiplier=10 and not elevation_multiplier=50]
+
+		gps tracks : gpstrack[]
+		gps routes : gpsroute[]
+
+ 		oneway1 : oneway=yes OR oneway=true OR oneway=-1
+
+		// 2011-03-05 Powerlines
+		power line : power=line
+		power minor line : power=minor_line
+
+
+// Routes
+//		route ncn : relation[type=route AND route=bicycle AND network=ncn]
+//		route byway : relation[type=route AND route=bicycle AND network="National Byway"]
+//		route foot : relation[type=route AND route=foot]
+		
+	points
+		place city : place=city
+		place town : place=town
+		place village : place=village
+		place hamlet : place=hamlet
+		place suburb : place=suburb
+		peak : natural=peak
+
+		gps waypoints : gpswaypoint[]
+		gps trackpoints: gpstrack[].gpspoint[]
+		gps routepoints: gpsroute[].gpspoint[]
+
+// z13      
+
+properties
+	map-background-color	: #F1EEE8
+	map-background-opacity	: 1
+	map-sea-color : #B5D0D0
+	font-weight : bold
+	font-family : Verdana
+	text-max-width : 7
+	text-halo-width : 25%
+	text-halo-opacity : 0.75
+	text-align-horizontal : center
+	text-align-vertical : near
+	text-offset-vertical : 0
+	font-stretch : 0.9
+	
+rules
+
+// z13 2.10.2010
+	target: oneway1
+		define 
+			min-zoom : 15
+			shape : custom
+			shape-def : 60,0,20,-40,20,-15,-60,-15,-60,15,20,15,20,40;Z
+			shape-size : 12
+			shape-aspect : 0.75
+			shape-spacing : 6
+			fill-color : #6C70D4
+			line-style : none
+		for : oneway=-1
+			define
+				angle : 180
+		draw : shape 
+
+	target: gps tracks
+		define
+			line-color : red
+			line-opacity : 0.75
+			min-zoom : 5
+			line-width : 5
+		draw : line
+
+	target: gps routes
+		define
+			line-color : blue
+			line-opacity : 0.75
+			line-style : dash
+			min-zoom : 5
+			line-width : 5
+		draw : line
+
+	target : gps waypoints
+		define
+			shape : circle
+			shape-size : 8
+			line-color : green
+			fill-opacity : 0
+		draw : shape
+
+	target : gps trackpoints
+		define
+			min-zoom : 17
+			shape : square
+			shape-size : 10
+			line-color : green
+			line-width : 1
+			fill-opacity : 0
+		draw : shape
+
+
+	target : gps routepoints
+		define
+			min-zoom : 12
+			shape : diamond
+			shape-size : 10
+			line-color : green
+			line-width : 1
+			fill-opacity : 0
+		draw : shape
+
+	target : $featuretype(point)
+		if : place*
+			define
+				font-weight : bold
+	
+			if : *city
+				define
+					font-size : 6:8;14:20
+					min-zoom : 6
+					max-zoom : 14
+			elseif : *town
+				define
+					font-size : 9:8;12:10;20:20
+					min-zoom : 9
+			elseif : *village
+				define
+					font-size : 12:10;20:20
+					min-zoom : 12
+			elseif : *hamlet
+				define
+					font-size : 14:8;20:16
+					min-zoom : 14
+			elseif : *suburb
+				define
+					font-size : 13:10;20:20
+					min-zoom : 13
+					text-color : white black 50%
+			draw : text
+
+	target : playground
+		define
+			fill-color : #CCFEF0
+			line-style : none
+		draw : fill
+		define
+			line-color : #ADCCB5
+			line-width : 1
+		draw : line
+		define
+			min-zoom : 17
+		draw : text
+
+	target : $featuretype(area)
+		define
+			line-style : none
+			line-width : 1
+		if : forest
+			define
+				min-zoom : 9
+				fill-color : #8DC56C
+		elseif : landuse farmland
+			define
+				min-zoom : 9
+				fill-color : #E9D8BD
+		elseif : fell
+			define
+				fill-color : #C5FF5B black 10%
+		elseif : water
+			define
+				// z13 #B5D0D0 -> blue
+				fill-color : #5555ff
+		elseif : landuse residential
+			define
+				fill-color : #DCDCDC
+		elseif : landuse grass
+			define
+				fill-color : #CFECA8
+		elseif : landuse allotments
+			define
+				fill-color : #C8B084
+		elseif : meadow
+			define
+				fill-color : #CFECA8
+		elseif : nature reserve
+			define
+				fill-color : #ABDE96
+		elseif : amenity parking
+			define
+				fill-color : #F6EEB7
+		elseif : leisure park
+			define
+				fill-color : #C0F6B0
+		elseif : leisure garden
+			define
+				fill-color : #CFECA8
+		elseif : graveyard
+			define
+				fill-color : #A9CAAE
+		elseif : building
+			define
+				fill-color : #BCA9A9
+		elseif : leisure pitch
+			define
+				fill-color : #89D2AE
+		elseif : leisure stadium
+			define
+				fill-color : #33CC99
+		elseif : track
+			define
+				fill-color : #74DCBA
+		elseif : village green
+			define
+				fill-color : #CFECA8
+		elseif : landuse retail
+			define
+				fill-color : #F0D9D9
+				line-color : #F4A19E
+			draw : line
+		elseif : landuse industrial
+			define
+				fill-color : #DFD1D6
+		elseif : landuse commercial
+			define
+				fill-color : #EFC8C8
+		elseif : military
+			define
+				fill-color : #FE9898
+		elseif : aeroway*
+			define
+				fill-color : #E9D1FE
+		elseif : glacier
+			define
+				fill-color : #DDECEC
+				line-style : dash
+				line-color : #DDECEC black 10%
+		else
+			stop
+		draw : fill
+		define
+			min-zoom : 17
+		draw : text
+
+//		aeroway taxiway : aeroway=taxiway
+//		aeroway apron : aeroway=apron
+//		aeroway terminal : aeroway=terminal
+		
+	target : aeroway runway
+		define
+			min-zoom : 11
+			line-color : #BBBBCC
+			line-width : 11:2;15:20
+		draw : line
+		
+	target : aeroway taxiway
+		define
+			min-zoom : 11
+			line-color : #BBBBCC
+			line-width : 11:1;15:6
+		draw : line
+		
+	target : glacier
+		define
+			min-zoom : 10
+			text-color : #A3A3FE
+		draw : text
+		
+//	target : academic
+	target : amenity school
+		define
+			min-zoom : 15
+			icon-image : icons/SJJB/png/education_school.n.32.png
+			icon-width : 16
+		draw : icon
+		define
+			min-zoom : 17
+		draw : text
+		define
+			fill-color : #F0F0D8
+			line-style : none
+		draw : fill
+		define
+			line-color : #E5D2CC
+			line-width : 1
+		draw : line
+
+	target: amenity kindergarten 
+		define
+			icon-image : icons/SJJB/png/education_school.p.32.png
+			min-zoom : 15
+			icon-width : 16
+		draw : icon
+		define
+			min-zoom : 17
+			text-color : green black 50%
+		draw : text
+
+
+
+	// z13 entfernt
+	target : route*
+		define
+			line-width : 11:1.1;13:2.2;15:20;18:15
+			line-opacity : 0.5
+		if : *ncn
+			define
+				line-color : red
+				text : ref
+			draw : line
+			draw : text					
+		elseif : *byway
+			define
+				line-color : brown
+				line-style : dash
+				text : name
+			draw : line
+			draw : text
+		elseif : *foot
+			define
+				line-width : 13:4
+				line-offset : 12.9:0;13:2
+				line-offset-sides : right
+				line-color : red
+				line-opacity : 1
+				line-style : dot
+			draw : line
+		else
+			stop
+			
+	target : boundary*
+		define
+			line-color : #9E1A99 
+			// z13 0.5 -> 0.1
+			line-opacity : 0.1
+		if : boundary country
+			define
+				line-width : 6:1;9:3;10:6
+		elseif : boundary province
+			define
+				min-zoom : 4
+				line-width : 4:1;11:3
+				line-style : dash
+		elseif : boundary municipal
+			define
+				min-zoom : 12
+				line-width : 12:1;14:2
+				line-style : dash
+		draw : line
+
+	target : national park
+		define
+			fill-color : #8DC56C
+			fill-opacity : 0.2
+			line-style : none
+		draw : fill
+		define
+			line-color : #8DC56C black 20%
+			line-opacity : 0.5
+			line-width : 3
+			line-style : dash
+			font-size : 3:3;12:12
+			text-color : green
+			font-weight : normal
+		draw : line
+		draw : text
+
+	target : peak
+		define
+			shape : triangle
+			shape-size : 7
+			fill-color : #D08F55
+			line-style : none
+			min-zoom : 11
+		draw : shape
+		define
+			text-color : #ae4242
+			min-zoom : 13
+			font-size : 10
+			text-max-width : 10
+			text-offset-vertical : 1
+			text-align-vertical : far
+		draw : text
+					
+	target : railway
+		define
+			min-zoom : 13
+			line-style : solid
+			line-color : gray
+			line-width : 3
+			border-style : solid
+			border-color : gray
+			border-width : 1
+		for : bridge=yes
+			define
+				line-color : white gray 50% 
+				border-color : black
+				border-width : 2
+		draw : line
+		define
+			min-zoom : 13
+			line-style : dashlong
+			line-color : white
+			line-width : 3
+			border-style : none
+		draw : line
+		draw : text
+		define
+			min-zoom : 6
+			max-zoom : 13
+			line-style : none
+			line-color : white black 30%
+			line-width : 6:1;8:1;12:1.5
+		draw : line
+// z13 16-10-2010
+	target : tram
+		define
+			min-zoom : 10
+			line-style : solid
+			line-color : black
+			line-width : 10:0.5;12:0.8;16:2.5;17:3
+		draw : line
+
+	target : highway private
+		define
+			line-width : 4
+			line-style : dash
+			line-color : #F7D4D4
+		draw : line
+
+// z13 09-10-2010
+	target : construction*
+		define
+			font-size : 15:7;18:10
+			font-weight : bold
+	
+		
+		define
+			line-join : round
+			line-start-cap : round
+			line-end-cap : round
+			border-style : solid
+		if : *motorway*
+			if : *link
+				define
+					line-width : 7:1;12:3;13:4;16:5;18:6
+			else
+				define
+					line-width : 7:1;9:2;12:3;13:7;16:10;18:12
+
+			// schwarzer Rand
+			define
+				min-zoom : 12
+				line-color : white
+				border-color : black 
+				border-width : 15%	
+				line-style : solid
+			for : bridge=yes
+				define
+					border-width : 35%
+			draw : line			
+
+			define
+				min-zoom : 12
+				line-color : blue white 50%
+				line-style : dot	
+			draw : line
+
+			define
+				min-zoom : 7
+				max-zoom : 12
+				line-color : blue white 50%
+				line-style : dot
+				border-style : none
+			draw : line
+
+		elseif : *trunk*
+			define
+				line-width : 7:1;9:2;12:3;13:7;16:10;18:12
+			// schwarzer Rand
+			define
+				min-zoom : 12
+				line-color : white
+				border-color : black 
+				border-width : 15%	
+				line-style : solid
+			for : bridge=yes
+				define
+					border-width : 35%
+			draw : line	
+			define
+				min-zoom : 12
+				line-style : dot
+				line-color : green
+				border-style : none
+			draw : line
+			draw : text
+			define
+				min-zoom : 7
+				max-zoom : 12
+				line-color : green
+				line-style : dot
+				border-style : none
+			draw : line
+		elseif : *primary*
+			define
+				line-width : 7:1;9:2;12:3;13:7;16:10;18:12
+			// schwarzer Rand
+			define
+				min-zoom : 12
+				line-color : white
+				border-color : black 
+				border-width : 15%	
+				line-style : solid
+			for : bridge=yes
+				define
+					border-width : 35%
+			draw : line	
+			define
+				min-zoom : 12
+				line-style : dot
+				line-color : #ECA2A3
+				border-style : none
+			draw : line
+			draw : text
+			define
+				min-zoom : 7
+				max-zoom : 12
+				line-color : #ECA2A3
+				line-style : dot
+				border-style : none
+			draw : line
+
+		elseif : *secondary
+			define
+				line-width : 11:1;13:2;15:10;18:12
+			// schwarzer Rand
+			define
+				min-zoom : 12
+				line-color : #FDD6A4
+				border-color : black 
+				border-width : 15%	
+				line-style : solid
+			for : bridge=yes
+				define
+					border-width : 35%
+			draw : line	
+			define
+				min-zoom : 12
+				line-style : dot
+				line-color : #FDD6A4 black 35%
+				border-style : none
+			draw : line
+			draw : text
+			define
+				min-zoom : 7
+				max-zoom : 12
+				line-color : #FDD6A4 black 35%
+				line-style : dot
+				border-style : none
+			draw : line
+		elseif : *tertiary
+			define
+				line-width : 11:1;13:2;15:10;18:12
+			// schwarzer Rand
+			define
+				min-zoom : 12
+				line-color : #FEFEB2
+				border-color : black 
+				border-width : 15%	
+				line-style : solid
+			for : bridge=yes
+				define
+					border-width : 35%
+			draw : line	
+			define
+				min-zoom : 12
+				line-style : dot
+				line-color : #FEFEB2 black 35%
+				border-style : none
+			draw : line
+			draw : text
+			define
+				min-zoom : 7
+				max-zoom : 12
+				line-color : #FEFEB2 black 25%
+				line-style : dot
+				border-style : none
+			draw : line
+		elseif : *service
+			define
+				line-width : 7:0.6;9:1;10:1.2;12:2.5;13:3;16:5;18:6
+			// schwarzer Rand
+			define
+				min-zoom : 13
+				line-color : white
+				border-color : black 
+				border-width : 25%	
+				line-style : solid
+			for : bridge=yes
+				define
+					border-width : 35%
+			draw : line	
+			define
+				min-zoom : 13
+				line-style : dot
+				line-color : white black 15%
+				border-style : none
+			draw : line
+			draw : text
+
+		elseif : *pedestrian
+			define
+				min-zoom : 13
+				line-color : white black 25%
+				line-width : 7:0.6;9:1;10:1.2;12:2.5;13:3;16:5;18:6
+				border-style : dot
+				// z13 20 -> 100%
+				border-color : black
+				border-width : 15%
+			for : bridge=yes
+				define
+					border-width : 30%
+			draw : line
+
+		elseif : $regex("(.*residential)|(.*unclassified)")
+			define
+				line-width : 12:1;13:1.5;15:6;16:8;18:12
+			// schwarzer Rand
+			define
+				min-zoom : 13
+				line-color : white
+				border-color : black 
+				border-width : 25%	
+				line-style : solid
+			for : bridge=yes
+				define
+					border-width : 35%
+			draw : line	
+			define
+				min-zoom : 13
+				line-style : dot
+				line-color : white black 15%
+				border-style : none
+			draw : line
+			draw : text
+
+		elseif : *track
+			define
+				min-zoom : 12.5
+				// z13 #9D7517 -> black
+				line-color : black
+				line-width : 1.5
+				line-style : dash
+				border-color : white
+				border-width : 100%
+				border-opacity : 0.3
+			for : bridge=yes
+				define
+					line-style : solid
+					line-color : white black 20%
+					line-width : 1.5
+					border-color : black
+					border-width : 120%
+					border-opacity : 1
+			draw : line
+		elseif : *footway
+			define	
+				min-zoom : 13
+				// z13 #F68474 -> black
+				line-color : black
+				line-width : 1.5
+				line-style : dot
+				border-color : white
+				border-width : 100%
+				border-opacity : 0.3
+			for : bridge=yes
+				define
+					line-style : dot
+					line-color : white
+					line-width : 1.5
+					border-color : white black 75%
+					border-width : 120%
+					border-opacity : 1
+			draw : line
+			draw : text		
+		elseif : *cycleway
+			define	
+				min-zoom : 13
+				line-color : blue
+				line-width : 1.5
+				line-style : dot
+				border-color : white
+				border-width : 100%
+				border-opacity : 0.3
+			for : bridge=yes
+				define
+					line-style : dot
+					line-color : white
+					line-width : 1.5
+					border-color : blue black 25%
+					border-width : 120%
+					border-opacity : 1
+			draw : line
+		elseif : *path
+			define	
+				min-zoom : 13				
+				line-color : #6E7C6D
+				line-width : 1.5
+				line-style : dash
+				border-color : white
+				border-width : 100%
+				border-opacity : 0.3
+			for : bridge=yes
+				define
+					line-style : dash
+					line-color : white
+					line-width : 1.5
+					border-color : #6E7C6D black 50%
+					border-width : 80%
+					border-opacity : 1
+			draw : line
+
+		//z13 13-10-2010
+		elseif : *livingstreet
+			define
+				line-width : 12:1;13:1.5;15:6;16:8;18:12
+			// schwarzer Rand
+			define
+				min-zoom : 13
+				line-color : white
+				border-color : black 
+				border-width : 25%	
+				line-style : solid
+			for : bridge=yes
+				define
+					border-width : 35%
+			draw : line	
+			define
+				min-zoom : 13
+				line-style : dot
+				line-color : #AAAAAA
+				border-style : none
+			draw : line
+			draw : text
+
+		//z13 14-10-2010
+		elseif : *road
+			define
+				line-width : 12:1;13:1.5;15:6;16:8;18:12
+			// schwarzer Rand
+			define
+				min-zoom : 13
+				line-color : white
+				border-color : black 
+				border-width : 25%	
+				line-style : solid
+			for : bridge=yes
+				define
+					border-width : 35%
+			draw : line	
+			define
+				min-zoom : 13
+				line-style : dot
+				line-color : #AAAAAA
+				border-style : none
+			draw : line
+			draw : text
+
+		else
+			stop
+
+	target : highway*
+		define
+			font-size : 15:7;18:10
+			font-weight : bold	
+		define
+			line-join : round
+			line-start-cap : round
+			line-end-cap : round
+			border-style : solid
+	
+		for : tunnel=yes
+			define
+				border-style : dot
+
+		if : *motorway*
+			if : *link
+				define
+					line-width : 7:1;12:3;13:4;16:5;18:6
+			else
+				define
+					line-width : 7:1;9:2;12:3;13:7;16:10;18:12
+			define
+				min-zoom : 12
+				line-color : #849BBD
+				// z13 20 -> 100
+				border-color : #849BBD black 100%
+				border-width : 15%	
+			for : bridge=yes
+				define
+					border-width : 35%			
+			draw : line
+			define
+				min-zoom : 7
+				max-zoom : 12
+				border-style : none
+			draw : line
+		elseif : *trunk*
+			define
+				min-zoom : 12
+				line-color : #96D296
+				line-width : 11:1;13:2;15:10;18:12
+				// z13 20 -> 100
+				border-color : #96D296 black 100%
+				border-width : 15%
+			for : bridge=yes
+				define
+					border-width : 35%
+			draw : line
+			define
+				min-zoom : 7
+				max-zoom : 12
+				border-style : none
+			draw : line
+		elseif : *primary*
+			define
+				min-zoom : 11
+				line-color : #ECA2A3
+				line-width : 11:1.5;12:2;15:10;18:12
+				// z13 20 -> 100
+				border-color : #ECA2A3 black 100%
+				border-width : 15%
+			for : bridge=yes
+				define
+					border-width : 35%
+			draw : line
+			define
+				min-zoom : 7
+				max-zoom : 11
+				border-style : none
+			draw : line
+		elseif : *secondary
+			define
+				min-zoom : 12
+				line-color : #FDD6A4
+				line-width : 11:1;13:2;15:10;18:12
+				// #CAA36F -> black
+				border-color : black
+				// z13 5 -> 15
+				border-width : 15%
+			for : bridge=yes
+				define
+					border-width : 35%
+			draw : line
+			define
+				min-zoom : 8.5
+				max-zoom : 12
+				border-style : none
+			draw : line
+		elseif : *tertiary
+			define
+				min-zoom : 10
+				line-color : #FEFEB2
+				line-width : 11:1;13:2;15:10;18:12
+				// z13 20 -> 100
+				border-color : #FEFEB2 black 100%
+				border-width : 15%
+			for : bridge=yes
+				define
+					border-width : 35%
+			draw : line
+			draw : text
+		elseif : *service
+			define
+				min-zoom : 13
+				line-color : white
+				line-width : 7:0.6;9:1;10:1.2;12:2.5;13:3;16:5;18:6
+				// z13 schwarzer Rand 100%
+				border-color : #FEFEB2 black 100%
+				// z13 Rand 15 -> 25%
+				border-width : 25%
+			for : bridge=yes
+				define
+					border-width : 50%
+			draw : line
+		elseif : *pedestrian
+			define
+				min-zoom : 13
+				line-color : white black 25%
+				line-width : 7:0.6;9:1;10:1.2;12:2.5;13:3;16:5;18:6
+				// z13 20 -> 100%
+				border-color : black
+				border-width : 15%	
+			for : bridge=yes
+				define
+					border-width : 35%		
+			draw : line
+		elseif : $regex("(.*residential)|(.*unclassified)")
+			define
+				min-zoom : 13
+				line-color : white
+				// z13 12:1;13:1.5;15:10;18:12 -> 
+				line-width : 12:1;13:1.5;15:6;16:8;18:12
+				// z13 Rand black 100%
+				border-color : white black 100%
+				border-width : 20%
+			for : bridge=yes
+				define
+					border-width : 35%
+			draw : line
+			define
+				min-zoom : 10
+				max-zoom : 13
+				border-style : none
+				// z13 25 -> 100
+				line-color : white black 100%
+			draw : line
+			define
+				min-zoom : 15
+				max-zoom : 20
+			draw : text
+		elseif : *track
+			define
+				min-zoom : 12.5
+				// z13 #9D7517 -> black
+				line-color : black
+				line-width : 1.5
+				line-style : dash
+				border-color : white
+				border-width : 100%
+				border-opacity : 0.3
+			for : bridge=yes
+				define
+					line-style : solid
+					line-color : white black 20%
+					line-width : 1.5
+					border-color : black
+					border-width : 120%
+					border-opacity : 1
+			draw : line
+		elseif : *footway
+			define	
+				min-zoom : 13
+				// z13 #F68474 -> black
+				line-color : black
+				line-width : 1.5
+				line-style : dot
+				border-color : white
+				border-width : 100%
+				border-opacity : 0.3
+			for : bridge=yes
+				define
+					line-style : dot
+					line-color : white
+					line-width : 1.5
+					border-color : white black 75%
+					border-width : 120%
+					border-opacity : 1
+			draw : line
+			draw : text		
+		elseif : *cycleway
+			define	
+				min-zoom : 13
+				line-color : blue
+				line-width : 1.5
+				line-style : dot
+				border-color : white
+				border-width : 100%
+				border-opacity : 0.3
+			for : bridge=yes
+				define
+					line-style : dot
+					line-color : white
+					line-width : 1.5
+					border-color : blue black 25%
+					border-width : 120%
+					border-opacity : 1
+			draw : line
+		elseif : *path
+			define	
+				min-zoom : 13				
+				line-color : #6E7C6D
+				line-width : 1.5
+				line-style : dash
+				border-color : white
+				border-width : 100%
+				border-opacity : 0.3
+			for : bridge=yes
+				define
+					line-style : dash
+					line-color : white
+					line-width : 1.5
+					border-color : #6E7C6D black 50%
+					border-width : 80%
+					border-opacity : 1
+			draw : line
+		//z13 13-10-2010
+		elseif : *livingstreet
+			define
+				min-zoom : 13
+				line-color : #AAAAAA
+				// z13 12:1;13:1.5;15:10;18:12 -> 
+				line-width : 12:1;13:1.5;15:6;16:8;18:12
+				// z13 Rand black 100%
+				border-color : white black 100%
+				border-width : 20%
+			for : bridge=yes
+				define
+					border-width : 35%
+			draw : line
+			define
+				min-zoom : 10
+				max-zoom : 13
+				line-style : solid
+				border-style : none
+				line-color : white black 100%
+			draw : line
+			define
+				min-zoom : 15
+				max-zoom : 20
+			draw : text
+		elseif : *road
+			define
+				min-zoom : 13
+				line-color : #eeeeee
+				// z13 12:1;13:1.5;15:10;18:12 -> 
+				line-width : 12:1;13:1.5;15:6;16:8;18:12
+				// z13 Rand black 100%
+				border-color : white black 100%
+				border-width : 20%
+			for : bridge=yes
+				define
+					border-width : 35%
+			draw : line
+			define
+				min-zoom : 10
+				max-zoom : 13
+				line-style : solid
+				border-style : none
+				line-color : white black 100%
+			draw : line
+			define
+				min-zoom : 15
+				max-zoom : 20
+			draw : text
+		else
+			stop
+
+
+
+
+	target : highway steps
+		define
+			min-zoom : 16
+			shape : custom
+//			shape-def : -1,1;-1,-1;1,-1;1,1;-1,1
+			shape-def : -1,1;-1,-1;1,-1;1,1;-1,1;Z
+			shape-spacing : 16:1;17:3;18:2
+			shape-size : 16:1.5;17:1;18:2
+			shape-aspect : 1.5
+			fill-color : black
+			line-style : none
+		draw : shape
+		define	
+			min-zoom : 13
+			max-zoom : 15.9
+			// z13 #F68474 -> black
+			line-color : black
+			line-width : 1.5
+			line-style : dot
+			border-style : solid
+			border-color : white
+			border-width : 100%
+			border-opacity : 0.3
+		draw : line
+
+
+	target : line barrier
+		define
+			min-zoom : 13
+			line-color : black
+			line-width : 1
+		draw : line
+
+	target : historic citywalls
+		define
+			min-zoom : 13
+			line-color : #8D968D
+			line-width : 7:0.6;9:1;10:1.2;12:2.5;13:3;16:10
+		draw : line
+		define
+			min-zoom : 17
+		draw : text
+
+	target : river
+		define
+			// z13 #B5D0D0 -> blue
+			line-color : blue
+			line-width : 7:1;12:2;14:5
+		draw : line
+		define
+			font-size : 14
+			min-zoom : 16
+		draw : text
+
+	target : canal
+		define
+			min-zoom : 12
+			// z13 #B5D0D0 -> blue
+			line-color : blue
+			line-width : 12:1;17:8
+		draw : line
+		define
+			min-zoom : 17
+		draw : text
+		
+	target : drain
+		define
+			min-zoom : 13
+			// z13 #B5D0D0 -> blue
+			line-color : blue
+			line-width : 1
+		draw : line	
+		define
+			min-zoom : 17
+		draw : text
+	
+	target : stream
+		define
+			min-zoom : 13
+			// z13 #B5D0D0 -> blue
+			line-color : blue
+			line-width : 13:1;15:2
+		draw : line
+		define
+			min-zoom : 16
+		draw : text
+		
+	target: amenity parking
+		define
+			icon-image : icons/SJJB/png/transport_parking.n.32.png
+			min-zoom : 15
+			icon-width : 16
+		draw : icon
+	target: amenity fuel
+		define
+			icon-image : icons/SJJB/png/transport_fuel.p.32.png
+			min-zoom : 15
+			icon-width : 20
+		draw : icon
+		define
+			min-zoom : 17
+			text : name brand 
+			text-color : blue black 50%
+		draw : text
+
+	target: bus stop
+		define
+			icon-image : icons/SJJB/png/transport_bus_stop.n.32.png
+			min-zoom : 15
+			icon-width : 16
+		draw : icon
+		define
+			text-color : blue
+			min-zoom : 16
+		draw : text
+
+// z13
+	target: railway tram_stop
+		define
+			icon-image : icons/SJJB/png/transport_tram_stop.n.32.png
+			min-zoom : 15
+			icon-width : 16
+		draw : icon
+		define
+			text-color : blue
+			min-zoom : 16
+		draw : text
+	target: railway station
+		define
+			icon-image : icons/SJJB/png/transport_train_station.n.32.png
+			min-zoom : 15
+			icon-width : 16
+		draw : icon
+		define
+			text-color : blue
+			min-zoom : 16
+		draw : text
+
+	target: railway level_crossing
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/level_crossing.png
+			min-zoom : 15
+			icon-width : 7
+		draw : icon
+
+	target: amenity postbox
+		define
+			icon-image : icons/SJJB/png/amenity_post_box.n.32.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+		define
+			min-zoom : 17
+			text : collection_times
+		draw : text
+
+	target: amenity postoffice
+		define
+			icon-image : icons/SJJB/png/amenity_post_office.p.32.png
+			min-zoom : 15
+			icon-width : 16
+		draw : icon
+	target: amenity telephone
+		define
+			icon-image : icons/SJJB/png/amenity_telephone.n.32.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+
+	target: amenity fire station
+		define
+			icon-image : icons/SJJB/png/amenity_firestation.n.32.png
+			min-zoom : 15
+			icon-width : 16
+		draw : icon	
+		define
+			min-zoom : 17
+			text-color : red black 50%
+		draw : text		
+	target: amenity hospital
+		define
+			icon-image : icons/SJJB/png/health_hospital.n.32.png
+			min-zoom : 15
+			icon-width : 16
+		draw : icon
+		define
+			min-zoom : 15
+			text-color : magenta black 25%
+		draw : text	
+
+	target: amenity doctors
+		define
+			icon-image : icons/SJJB/png/health_doctors.n.32.png
+			min-zoom : 15
+			icon-width : 16
+		draw : icon
+		define
+			min-zoom : 17
+			text-color : magenta black 25%
+		draw : text	
+
+	target: amenity dentist
+		define
+			icon-image : icons/SJJB/png/health_dentist.n.32.png
+			min-zoom : 15
+			icon-width : 16
+		draw : icon
+		define
+			min-zoom : 17
+			text-color : magenta black 25%
+		draw : text	
+
+	target: amenity veterinary
+		define
+			icon-image : icons/SJJB/png/health_veterinary.n.32.png
+			min-zoom : 15
+			icon-width : 16
+		draw : icon
+		define
+			min-zoom : 17
+			text-color : magenta black 25%
+		draw : text	
+
+	target: amenity police station
+		define
+			icon-image : icons/SJJB/png/amenity_police.n.32.png
+			min-zoom : 15
+			icon-width : 16
+		draw : icon
+		define
+			min-zoom : 17
+			text-color : green black 25%
+		draw : text
+	target: amenity cafe
+		define
+			icon-image : icons/SJJB/png/food_cafe.n.32.png
+			min-zoom : 15
+			icon-width : 16
+		draw : icon
+		define
+			min-zoom : 17
+			text-color : red black 50%
+		draw : text
+	target: amenity recycling
+		define
+			icon-image : icons/SJJB/png/amenity_recycling.n.32.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+
+
+
+
+	target: mini roundabout
+		define
+			icon-image : icons/SJJB/png/transport_roundabout_anticlockwise.p.32.png
+			min-zoom : 16
+			icon-width : 9
+		draw : icon
+
+// z13 2011-02-17
+	target : turning circle
+
+
+		// äußerer Ring in zwei Linienstärken
+		define
+			min-zoom : 16
+			shape-size : 14:15;15:20;16:30;18:50
+			shape-aspect : 1
+			shape: custom
+			shape-def : p:black;pw:2;f:white;m:0,-10;a:10,10,0,10;;a:10,10,0,-10;z
+		draw : shape
+		// innerer Ring
+		define
+			min-zoom : 16
+			shape-size : 14:3;15:5;16:7;18:12
+			shape-aspect : 1
+			shape: custom
+			shape-def : p:black;pw:2;f:white;m:0,-10;a:10,10,0,10;;a:10,10,0,-10;z
+		draw : shape
+
+
+		define
+			min-zoom : 14
+			max-zoom : 16
+			shape-size : 14:15;15:20;16:30;18:50
+			shape-aspect : 1	
+			shape : custom
+			shape-def : p:black;pw:1;f:white;m:0,-10;a:10,10,0,10;;a:10,10,0,-10;z
+		draw : shape
+
+	target: amenity place_of_worship_christian
+		define
+			icon-image : icons/SJJB/png/place_of_worship_christian3.glow.32.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+		define
+			min-zoom : 17
+			text-color : black
+		draw : text
+	target: amenity place_of_worship_other
+		define
+			icon-image : icons/SJJB/png/place_of_worship_unknown3.glow.32.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+		define
+			min-zoom : 17
+			text-color : black
+		draw : text
+	target: amenity drinking water
+		define
+			icon-image : icons/SJJB/png/food_drinkingtap.n.32.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+		define
+			min-zoom : 17
+			text-color : red black 50%
+		draw : text
+	target: amenity bank
+		define
+			icon-image : icons/SJJB/png/money_bank2.n.32.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+		define
+			min-zoom : 17
+			text-color : black
+		draw : text
+	target: amenity atm
+		define
+			icon-image : icons/SJJB/png/money_atm2.n.32.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+		define
+			min-zoom : 17
+			text-color : black
+		draw : text
+	target: amenity restaurant
+		define
+			icon-image : icons/SJJB/png/food_restaurant.n.32.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+		define
+			min-zoom : 17
+			text-color : red black 50%
+		draw : text
+	target: amenity toilets
+		define
+			icon-image : icons/SJJB/png/amenity_toilets.n.32.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+	target: amenity pharmacy
+		define
+			icon-image : icons/SJJB/png/health_pharmacy.p.32.png
+			min-zoom : 15
+			icon-width : 16
+		draw : icon
+		define
+			min-zoom : 17
+			text-color : magenta black 25%
+		draw : text
+	target: amenity library
+		define
+			icon-image : icons/SJJB/png/amenity_library.n.32.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+		define
+			min-zoom : 17
+			text-color : red black 50%
+		draw : text
+	target: tree
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/tree2.png
+			min-zoom : 16
+			icon-width : 6
+		draw : icon
+		define
+			min-zoom : 17
+			text-color : green black 50%
+		draw : text
+	target: memorial
+		define
+			icon-image : icons/SJJB/png/tourist_memorial.n.32.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+		define
+			min-zoom : 17
+			text-color : red black 50%
+		draw : text
+
+	target: amenity bench 
+		define
+			icon-image : icons/SJJB/png/amenity_bench.n.32.png
+			min-zoom : 17
+			icon-width : 12
+		draw : icon
+
+	target: tourism picnic_site
+		define
+			icon-image : icons/SJJB/png/tourist_picnic.n.32.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+		define
+			min-zoom : 17
+			text-color : red black 50%
+		draw : text	
+
+	target: amenity shelter 
+		define
+			icon-image : icons/SJJB/png/accommodation_shelter.n.32.png
+			min-zoom : 15
+			icon-width : 16
+		draw : icon
+		define
+			min-zoom : 17
+			text-color : blue black 50%
+		draw : text
+
+	target : traffic signals
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/traffic_light.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+
+	target: amenity courthouse
+		define
+			icon-image : icons/SJJB/png/amenity_court.n.32.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+		define
+			min-zoom : 17
+			text-color : red black 50%
+		draw : text
+
+	target : amenity prison 
+		define
+			icon-image : icons/SJJB/png/amenity_prison.n.32.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+		define
+			min-zoom : 17
+			text-color : red black 50%
+		draw : text
+
+	target : tourism information office
+		define
+			icon-image : icons/SJJB/png/amenity_information.n.32.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+		define
+			min-zoom : 17
+			text-color : red black 50%
+		draw : text
+
+	target : tourism information
+		define
+			icon-image : icons/SJJB/png/amenity_information.p.32.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+		define
+			min-zoom : 17
+			text-color : red black 50%
+		draw : text
+
+	target: amenity townhall
+		define
+			icon-image : http://josm.openstreetmap.de/svn/trunk/images/presets/townhall.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+		define
+			min-zoom : 17
+			text-color : red black 50%
+		draw : text
+
+	target: amenity theater 
+		define
+			icon-image : icons/SJJB/png/tourist_theatre.p.32.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+		define
+			min-zoom : 17
+			text-color : red black 50%
+		draw : text
+
+	target : barrier*
+		define
+			min-zoom : 16
+			icon-width : 4
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/bollard.png
+		if : barrier gate
+			define
+				icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/gate2.png
+				min-zoom : 16
+				icon-width : 10
+		if : barrier lift_gate
+			define
+				icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/liftgate.png
+				min-zoom : 16
+				icon-width : 10
+		draw : icon
+
+	target : tourism*
+		define
+			min-zoom : 17
+			text-color : #2B80FE
+		draw : text
+		if : *hotel
+			define
+				icon-image : icons/SJJB/png/accommodation_hotel2.n.32.png
+				min-zoom : 16
+				icon-width : 16
+
+		elseif : *viewpoint
+			define
+				icon-image : icons/SJJB/png/tourist_view_point.p.32.png
+				min-zoom : 16
+				icon-width : 16
+
+		elseif : *museum
+			define
+				icon-image : icons/SJJB/png/tourist_museum.n.32.png
+				min-zoom : 16
+				icon-width : 16
+		else
+			stop
+		draw : icon
+		define
+			min-zoom : 17
+			text-color : blue white 50%
+		draw : text
+	target : amenity*
+		define
+			min-zoom : 17
+			text-color : #856951
+		draw : text
+
+		define
+			min-zoom : 16
+			icon-width : 16
+		if : *pub
+			define
+				icon-image : icons/SJJB/png/food_pub.n.32.png
+		elseif : *fast_food
+			define
+				icon-image : icons/SJJB/png/food_fastfood2.n.32.png
+		else
+			stop
+		draw : icon
+
+
+	target: contour*
+		define
+			line-color : #7f3300
+			line-opacity : 0.2
+			curved : true
+		if : *major
+			define
+				min-zoom : 9
+				line-width : 11:0.1;11.9:1;12:2
+		else
+			define
+				min-zoom : 12
+				line-width : 1
+		draw : contour
+		
+	target: coastline
+		define
+			line-color : #B5D0D0
+			line-width : 2
+		draw : line
+
+// 2011-02-19
+	target: shop*
+		// Wegen Tankstellen mit shop=...
+		for : amenity
+			stop
+		else
+		define
+			
+			min-zoom : 17
+			text-color : magenta black 25%
+			text : name " (" shop ")"
+		draw : text
+
+		define
+			min-zoom : 16
+			icon-width : 16
+
+		if : *alcohol
+			define
+				icon-image : icons/SJJB/png/shopping_alcohol.n.32.png
+		elseif : *anime 
+		elseif : *art 
+		elseif : *bakery
+			define
+				icon-image : icons/SJJB/png/shopping_bakery.n.32.png
+		elseif : *bathroom_furnishing
+		elseif : *beauty 
+		elseif : *bed 
+		elseif : *beverages 
+		elseif : *bicycle 
+			define
+				icon-image : icons/SJJB/png/shopping_bicycle.n.32.png
+		elseif : *books
+			define
+				icon-image : icons/SJJB/png/shopping_book.n.32.png
+		elseif : *boutique 
+		elseif : *butcher
+			define
+				icon-image : icons/SJJB/png/shopping_butcher.n.32.png
+		elseif : *car
+			define
+				icon-image : icons/SJJB/png/shopping_car.n.32.png
+		elseif : *car_repair
+			define
+				icon-image : icons/SJJB/png/shopping_car_repair.n.32.png
+		elseif : *charity
+		elseif : *chemist 
+		elseif : *clothes 
+			define
+				icon-image : icons/SJJB/png/shopping_clothes.n.32.png
+		elseif : *computer
+		elseif : *confectionery
+			define
+				icon-image : icons/SJJB/png/shopping_confectionery.n.32.png
+		elseif : *convenience
+			define
+				icon-image : icons/SJJB/png/shopping_convenience.n.32.png
+		elseif : *copyshop
+		elseif : *curtain
+		elseif : *deli 
+		elseif : *department_store 
+		elseif : *dive 
+		elseif : *doityourself
+			define
+				icon-image : icons/SJJB/png/shopping_diy.n.32.png
+		elseif : *drugstore  
+		elseif : *dry_cleaning
+		elseif : *electronics
+		elseif : *erotic
+		elseif : *fabric
+		elseif : *farm
+		elseif : *florist
+			define
+				icon-image : icons/SJJB/png/shopping_garden_centre.n.32.png
+		elseif : *frame
+		elseif : *funeral_directors
+		elseif : *furnace
+		elseif : *furniture
+		elseif : *garden_centre
+			define
+				icon-image : icons/SJJB/png/shopping_garden_centre.n.32.png
+		elseif : *general
+		elseif : *gift
+			define
+				icon-image : icons/SJJB/png/shopping_gift.n.32.png
+		elseif : *glaziery
+		elseif : *greengrocer
+			define
+				icon-image : icons/SJJB/png/shopping_greengrocer.n.32.png
+		elseif : *hair dresser
+			define
+				icon-image : icons/SJJB/png/shopping_hairdresser.n.32.png
+		elseif : *hardware
+		elseif : *hearing_aids
+		elseif : *hifi
+			define
+				icon-image : icons/SJJB/png/shopping_hifi.n.32.png
+		elseif : *hunting
+		elseif : *interior_decoration
+		elseif : *jewelry
+			define
+				icon-image : icons/SJJB/png/shopping_jewelry.n.32.png
+		elseif : *kiosk
+		elseif : *kitchen
+		elseif : *laundry
+			define
+				icon-image : icons/SJJB/png/shopping_laundrette.n.32.png
+		elseif : *mall
+		elseif : *massage
+		elseif : *mobile_phone
+			define
+				icon-image : icons/SJJB/png/shopping_mobile_phone.n.32.png
+		elseif : *money_lender
+		elseif : *motorcycle
+			define
+				icon-image : icons/SJJB/png/shopping_motorcycle.n.32.png
+		elseif : *musical_instrument
+			define
+				icon-image : icons/SJJB/png/shopping_music.n.32.png
+		elseif : *newsagent
+		elseif : *optician
+		elseif : *organic
+		elseif : *outdoor
+		elseif : *paint
+		elseif : *pawnbroker
+		elseif : *pet
+			define
+				icon-image : icons/SJJB/png/shopping_pet.n.32.png 
+		elseif : *radiotechnics
+		elseif : *seafood
+		elseif : *second_hand
+		elseif : *shoes
+		elseif : *sports
+		elseif : *stationery
+		elseif : *supermarket
+		elseif : *tattoo
+		elseif : *tobacco
+		elseif : *toys
+		elseif : *trade
+		elseif : *vacant
+		elseif : *vacuum_cleaner
+		elseif : *variety_store
+		elseif : *video
+			define
+				icon-image : icons/SJJB/png/shopping_video_rental.n.32.png
+
+		else
+			define
+				icon-image : icons/SJJB/png/shopping_supermarket.n.32.png
+		draw : icon
+
+
+// 2011-03-05
+	target: craft*
+		define
+			min-zoom : 17
+			text-color : magenta black 25%
+			text : name " (" craft ")"
+
+		draw : text
+
+		define
+			min-zoom : 16
+			shape : square
+			shape-size : 12
+			line-width : 0
+			line-opacity : 0
+			fill-color : magenta black 25%
+		draw : shape
+
+	target : addr housenumber
+		define
+			min-zoom : 17
+			text-color : black
+			text : [[addr:housenumber]]
+
+		draw : text
+
+// 2011-03-05 Powerlines
+
+
+	target : power generator
+		define
+			fill-color : lightgray
+		draw : fill
+
+		define
+			line-color : darkgray
+		draw : line
+
+		define
+			shape : triangle
+			shape-size : 15
+			fill-color : lightgray
+			line-color : black
+			line-width : 1
+			min-zoom : 14
+		draw : shape
+
+		draw : text
+
+	target : power station
+		define
+			fill-color : lightgray
+		draw : fill
+
+		define
+			line-color : darkgray
+		draw : line
+
+		define
+			shape : triangle
+			shape-size : 10
+			fill-color : lightgray
+			line-color : black
+			line-width : 1
+			min-zoom : 14
+		draw : shape
+
+		draw : text
+
+	target : power substation 
+		define
+			fill-color : lightgray
+		draw : fill
+
+		define
+			line-color : darkgray
+		draw : line
+
+		define
+			shape : triangle
+			shape-size : 10
+			fill-color : lightgray
+			line-color : black
+			line-width : 1
+			min-zoom : 14
+		draw : shape
+
+		draw : text
+
+	target : power tower
+		define
+			shape : diamond
+			shape-size : 5
+			line-width : 0
+			min-zoom : 14
+			fill-color : white
+		draw : shape
+
+	target : power pole
+		define
+			shape : diamond
+			shape-size : 5
+			line-width : 0
+			min-zoom : 14
+			fill-color : white
+		draw : shape
+
+	target : power line
+		define
+			line-color : gray
+			line-width : 1
+			line-style : solid
+			min-zoom : 14
+		draw : line
+
+		draw : text
+
+	target : power minor line
+		define
+			line-color : gray
+			line-width : 1
+			line-style : solid
+			min-zoom : 14
+		draw : line
+
+		draw : text

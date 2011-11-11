@@ -1,0 +1,16 @@
+// origin: https://wiki.openstreetmap.org/wiki/User:ABRob/Maperitive_Regeln/Schwarzplan
+
+//	Rules for Maperitive by ABRob
+//
+//	Schwarzplan
+features
+	areas
+		building : building
+properties
+	map-background-color	: #FFFFFF
+	line-style : none
+rules
+	target : building
+		define
+			fill-color : black
+		draw : fill

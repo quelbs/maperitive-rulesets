@@ -1,0 +1,884 @@
+// origin: https://wiki.openstreetmap.org/wiki/User:Rotbarsch/Maperitive_rules/black_and_white
+
+// Author: Rotbarsch
+//
+// Goals: 1) A good background for maps with coloured data
+//        2) A black and white printer friendly design
+//
+// Modification history:
+// date         author      summary
+// 20.05.2010   rotbarsch   Intitial version derived from Maperitive default rules delivered with Mapritive 861
+//
+// Licence (just my changes!): Public Domain
+//
+// Source: http://wiki.openstreetmap.org/wiki/User:Rotbarsch/Maperitive_rules/black_and_white
+// Feedback wanted at: http://wiki.openstreetmap.org/wiki/User_talk:Rotbarsch/Maperitive_rules/black_and_white
+
+// Original Authors and copyrights comments of default rules delivered with Mapritive 861:
+//
+// Copied from Steve's (Seventy7) rules. 
+// Modified with some custom stuff.
+// The original copyright is below:
+//
+// Clone of Mapnik colours with a couple of extra POIs
+// User: Seventy7 27 April 2010
+
+
+features
+//	parking : amenity=parking
+//	postbox : amenity=post_box
+//	postoffice : amenity=post_office
+//	telephone : amenity=telephone
+//	fire station : amenity=fire_station
+//	police station : amenity=police
+//	recycling : amenity=recycling
+	church : amenity=place_of_worship AND religion=christian
+//	drinking water : amenity=drinking_water
+//	bank : amenity=bank
+//	atm : amenity=atm
+//	toilets : amenity=toilets
+//	library : amenity=library
+	tree : natural=tree
+//	school : node[amenity=school] area[amenity=school]
+//	bus stop : highway=bus_stop
+	mini roundabout : highway=mini_roundabout
+	gate : barrier=gate
+	tourism viewpoint : tourism=viewpoint
+//	tourism hotel : node[tourism=hotel] area[tourism=hotel]
+//	tourism museum : node[tourism=museum] area[tourism=museum]
+//	amenity pub : amenity=pub
+//	amenity fast_food : amenity=fast_food
+
+// These are not shown on Mapnik
+//	puffin : crossing_ref=puffin
+//	memorial : historic=memorial
+
+	areas
+		building : building=yes
+		water : natural=water OR waterway=riverbank OR landuse=reservoir
+		pitch : leisure=pitch
+		village green : landuse=village_green
+		forest : landuse=forest OR natural=wood
+		farm : landuse=farm
+		grass : landuse=grass
+		fell : natural=fell
+		national park : boundary=national_park
+		allotments : landuse=allotments
+		academic : node[amenity=university OR amenity=college OR amenity=school] area[amenity=university OR amenity=college OR amenity=school]
+		meadow : natural=meadow OR landuse=meadow
+		nature reserve : leisure=nature_reserve
+		playground : leisure=playground
+		car park: amenity=parking
+		track : leisure=track
+		graveyard : amenity=grave_yard OR landuse=cemetery
+		military barracks : landuse=military AND military=barracks 
+		park : leisure=park
+		leisure garden : leisure=garden
+		landuse retail : landuse=retail
+		landuse industrial : landuse=industrial
+		commercial area : landuse=commercial
+		residential area : landuse=residential
+		
+	lines
+		oneway : oneway=yes OR oneway=true OR oneway=-1
+		coastline : natural=coastline
+		river : waterway=river 
+		stream : waterway=stream
+		railway : railway=rail
+		line barrier : barrier=wall OR barrier=fence
+		highway motorway : highway=motorway
+		highway motorway link : highway=motorway_link
+		highway trunk : highway=trunk
+		highway trunk link: highway=trunk_link
+		highway primary link : highway=primary_link
+		highway primary : highway=primary
+		highway secondary : highway=secondary
+		highway tertiary : highway=tertiary
+		highway unclassified : highway=unclassified
+		highway residential : highway=residential
+		highway service : highway=service
+		highway living street : highway=living_street
+		highway pedestrian : highway=pedestrian
+		highway track : highway=track
+		highway footway : highway=footway
+		highway cycleway : highway=cycleway
+		highway path : highway=path
+		highway private : access=private AND highway
+		highway steps : highway=steps
+		bridge foot : bridge=yes AND (foot=yes OR highway=footway)
+		historic citywalls : historic=citywalls OR historic=city_wall
+
+		boundary country : boundary=administrative AND (admin_level=2 OR admin_level=4)
+		boundary province : boundary=administrative AND admin_level=6
+		boundary municipal : boundary=administrative AND admin_level=8
+		
+		contours major : contour[elevation_multiplier=50]
+		contours minor : contour[elevation_multiplier=10 and not elevation_multiplier=50]
+
+// Routes
+//		route ncn : relation[type=route AND route=bicycle AND network=ncn]
+//		route byway : relation[type=route AND route=bicycle AND network="National Byway"]
+//		route foot : relation[type=route AND route=foot]
+
+	points
+		place city : place=city
+		place town : place=town
+		place village : place=village
+		place hamlet : place=hamlet
+		hospital : amenity=hospital
+//		diy : shop=doityourself
+//		hair dresser : shop=hairdresser
+//		supermarket : shop=supermarket
+//		convenience : shop=convenience
+//		bakery : shop=bakery
+//		restaurant : amenity=restaurant
+//		cafe : amenity=cafe
+//		pharmacy : amenity=pharmacy
+
+properties
+	map-background-color	: #F1EEE8
+	map-background-opacity	: 1
+	map-sea-color : #B5B5B5
+	font-weight : bold
+	font-family : Verdana Bold
+	text-halo-width : 25%
+	text-halo-opacity : 0.75
+	
+
+rules
+	target : highway private
+		define
+			line-width : 4
+			line-style : dash
+			line-color : #F7F7F7
+		draw : line
+
+	target : highway*
+		for : oneway=yes OR oneway=true
+			define 
+				min-zoom : 15
+				shape : custom
+				shape-def : 60,0;20,-40;20,-15;-60,-15;-60,15;20,15;20,40;60,0
+				shape-size : 12
+				shape-aspect : 0.5
+				shape-spacing : 6
+				fill-color : #6C6C6C
+				line-style : none
+			for : oneway=-1
+				define
+					angle : 180
+			draw : shape 
+		
+		define
+			line-join : round
+			line-start-cap : round
+			line-end-cap : round
+			curved : true
+	
+		if : *motorway*
+			if : *link
+				define
+					line-width : 7:1;12:3;13:4;16:5;18:6
+			else
+				define
+					line-width : 7:1;9:2;12:3;13:7;16:10;18:12
+			define
+				min-zoom : 12
+				line-color : #848484
+				border-style : solid
+				border-color : #848484 black 20%
+				border-width : 15%				
+			draw : line
+			define
+				min-zoom : 7
+				max-zoom : 12
+				border-style : none
+			draw : line
+		elseif : *trunk*
+			define
+				min-zoom : 12
+				line-color : #969696
+				line-width : 11:1;13:2;15:10;18:12
+				border-style : solid
+				border-color : #969696 black 20%
+				border-width : 15%
+			draw : line
+			define
+				min-zoom : 7
+				max-zoom : 12
+				border-style : none
+			draw : line
+		elseif : *primary*
+			define
+				min-zoom : 11
+				line-color : #ECECEC
+				line-width : 11:1;12:2;15:13;18:15
+				border-style : solid
+				border-color : #ECECEC black 20%
+				border-width : 15%
+			draw : line
+			define
+				min-zoom : 7
+				max-zoom : 11
+				border-style : none
+			draw : line
+		elseif : *secondary
+			define
+				min-zoom : 12
+				line-color : #FDFDFD
+				line-width : 11:1;13:2;15:12;18:14
+				border-style : solid
+				border-color : #CACACA
+				border-width : 15%
+			draw : line
+			define
+				min-zoom : 8.5
+				max-zoom : 12
+				border-style : none
+			draw : line
+		elseif : *tertiary
+			define
+				min-zoom : 10
+				line-color : #FEFEFE
+				line-width : 11:1;13:2;15:10;18:12
+				border-style : solid
+				border-color : #FEFEFE black 20%
+				border-width : 15%
+			draw : line
+			draw : text
+		elseif : *service
+			define
+				min-zoom : 13
+				line-color : white
+				line-width : 7:0.6;9:1;10:1.2;12:2.5;13:3;16:5;18:6
+				border-style : solid
+				border-color : #FEFEFE black 20%
+				border-width : 15%
+			draw : line
+		elseif : *pedestrian
+			define
+				min-zoom : 13
+				line-color : #EDEDED
+				line-width : 7:0.6;9:1;10:1.2;12:2.5;13:3;16:5;18:6
+				border-style : solid
+				border-color : #B1B1B1 black 20%
+				border-width : 15%
+			draw : line
+		elseif : *living street
+			define
+				min-zoom : 13
+				line-color : #EDEDED
+				line-width : 7:0.6;9:1;10:1.2;12:2.5;13:3;16:5;18:6
+				border-style : solid
+				border-color : #B1B1B1 black 20%
+				border-width : 15%
+			draw : line
+			draw : text
+
+		elseif : $regex("(.*residential)|(.*unclassified)")
+			define
+				min-zoom : 13
+				line-color : white
+				line-width : 12:1;13:1.5;15:10;18:12
+				border-style : solid
+				border-color : white black 50%
+				border-width : 20%
+			draw : line
+			define
+				min-zoom : 10
+				max-zoom : 13
+				border-style : none
+				line-color : white black 25%
+			draw : line
+			define
+				min-zoom : 15
+				max-zoom : 20
+				font-size : 15:7;18:10
+			draw : text
+		elseif : *track
+			define
+				min-zoom : 12.5
+				line-color : #555555
+				line-width : 1.5
+				line-style : dash
+				border-style : solid
+				border-color : white
+				border-width : 100%
+				border-opacity : 0.3
+			draw : line
+		elseif : *footway
+			define	
+				min-zoom : 13
+				line-color : #555555
+				line-width : 1.5
+				line-style : dot
+				border-style : solid
+				border-color : white
+				border-width : 100%
+				border-opacity : 0.3
+//				curved : false
+			draw : line
+			draw : text		
+		elseif : *cycleway
+			define	
+				min-zoom : 13
+				line-color : #333333
+				line-width : 1.5
+				line-style : dot
+				border-style : solid
+				border-color : white
+				border-width : 100%
+				border-opacity : 0.3
+//				curved : false
+			draw : line
+		elseif : *path
+			define	
+				min-zoom : 13
+				line-color : #6E6E6E
+				line-width : 1.5
+				line-style : dash
+				border-style : solid
+				border-color : white
+				border-width : 100%
+				border-opacity : 0.3
+//				curved : false
+			draw : line
+		else
+			stop
+
+	target : highway steps
+		define
+			min-zoom : 16
+			shape : custom
+			shape-def : -1,1;-1,-1;1,-1;1,1;-1,1
+			shape-spacing : 2
+			shape-size : 16:1;20:3
+			shape-aspect : 3
+			fill-color : #555555
+			line-style : none
+		draw : shape
+
+	target : playground
+		define
+			min-zoom : 12
+			fill-color : #EEEEEE
+			line-style : none
+		draw : fill
+		define
+			line-color : #ADADAD
+			line-width : 1
+		draw : line
+		draw : text
+
+	target : $featuretype(area)
+		define
+			line-style : none
+			line-width : 1
+		if : forest
+			define
+				min-zoom : 9
+				fill-color : #8D8D8D
+		elseif : farm
+			define
+				min-zoom : 9
+				fill-color : #E9E9E9
+		elseif : fell
+			define
+				fill-color : #C5C5C5 black 10%
+		elseif : water
+			define
+				fill-color : #B5B5B5
+		elseif : residential area
+			define
+				fill-color : #DCDCDC
+		elseif : grass
+			define
+				fill-color : #CFCFCF
+		elseif : allotments
+			define
+				fill-color : #666666
+		elseif : meadow
+			define
+				fill-color : #CFCFCF
+		elseif : nature reserve
+			define
+				fill-color : #ABABAB
+		elseif : car park
+			define
+				fill-color : #F6F6F6
+		elseif : park
+			define
+				fill-color : #BBBBBB
+		elseif : leisure garden
+			define
+				fill-color : #CFCFCF
+		elseif : graveyard
+			define
+				fill-color : #A9A9A9
+		elseif : building
+			define
+				fill-color : #BCBCBC
+		elseif : pitch
+			define
+				fill-color : #BBBBBB
+		elseif : track
+			define
+				fill-color : #747474
+		elseif : village green
+			define
+				fill-color : #CFCFCF
+		elseif : landuse retail
+			define
+				fill-color : #F0F0F0
+				line-color : #F4F4F4
+			draw : line
+		elseif : landuse industrial
+			define
+				fill-color : #DFDFDF
+		elseif : commercial area
+			define
+				fill-color : #EFEFEF
+		elseif : military barracks
+			define
+				fill-color : #FEFEFE
+		else
+			stop
+		draw : fill
+		define
+			min-zoom : 17
+		draw : text
+
+
+	target : academic
+		define
+			fill-color : #F0F0F0
+			line-style : none
+		draw : fill
+		define
+			line-color : #E5E5E5
+			line-width : 1
+		draw : line
+//		draw : text
+
+	target : boundary*
+		define
+			line-color : #9E9E9E 
+			line-opacity : 0.5
+		if : boundary country
+			define
+				line-width : 6:1;9:3;10:6
+		elseif : boundary province
+			define
+				min-zoom : 4
+				line-width : 4:1;11:3
+				line-style : dash
+		elseif : boundary municipal
+			define
+				min-zoom : 12
+				line-width : 12:1;14:2
+				line-style : dash
+		draw : line
+
+	target : national park
+		define
+			fill-color : #8D8D8D
+			fill-opacity : 0.2
+			line-style : none
+		draw : fill
+		define
+			line-color : #8D8D8D black 20%
+			line-opacity : 0.5
+			line-width : 3
+			line-style : dash
+			font-size : 3:3;12:12
+			text-color : green
+		draw : line
+		draw : text
+					
+	target : railway
+		define
+			min-zoom : 13
+			line-color : #222222
+			line-width : 2
+			curved : false
+		draw : line
+		define
+			min-zoom : 13
+			line-style : dashlong
+			line-color : white
+			line-width : 2
+			border-style : solid
+			border-color : #222222
+			border-width : 25%
+			curved : false
+		draw : line
+		define
+			min-zoom : 6
+			max-zoom : 13
+			line-style : none
+			line-color : white black 30%
+			line-width : 6:1;8:1;12:1.5
+			curved : true
+		draw : line
+
+	target : line barrier
+		define
+			min-zoom : 13
+			line-color : black
+			line-width : 1
+		draw : line
+
+	target : bridge foot
+		define
+			min-zoom : 13
+			line-color : #555555
+			line-width : 7:0.6;9:1;10:1.2;12:2.5;13:3;16:5;18:6
+			line-style : dot
+			border-style : solid
+			border-color : #FEFEFE black 20%
+			border-width : 15%
+		draw : line
+		draw : text
+
+	target : historic citywalls
+		define
+			min-zoom : 13
+			line-color : #8D8D8D
+			line-width : 7:0.6;9:1;10:1.2;12:2.5;13:3;16:10
+		draw : line
+		draw : text
+
+		define
+
+
+// Routes
+	target : route*
+		define
+			line-width : 11:1.1;13:2.2;15:20;18:15
+			line-opacity : 0.75
+			curved : true
+		if : *ncn
+			define
+				line-color : red
+				text : ref
+			draw : line
+			draw : text					
+		elseif : *byway
+			define
+				line-color : brown
+				line-style : dash
+				text : name
+			draw : line
+			draw : text
+		elseif : *foot
+			define
+				line-color : purple
+				line-style : dash
+			draw : line
+		else
+			stop
+
+
+
+
+	target : river
+		define
+			line-color : #B5B5B5
+			line-width : 7:1;8:5
+		draw : line
+
+	target : stream
+		define
+			min-zoom : 13
+			line-color : #B5B5B5
+			line-width : 13:1;15:2
+		draw : line
+		
+	target: parking
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/parking.p.16.png
+			min-zoom : 15
+			icon-width : 16
+		draw : icon
+	target: bus stop
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/bus_stop.p.12.png
+			min-zoom : 15
+			icon-width : 16
+		draw : icon
+	target: postbox
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/post_box.p.16.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+		define
+			min-zoom : 17
+			text : collection_times
+		draw : text
+
+	target: postoffice
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/post_office.p.16.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+	target: telephone
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/telephone.p.16.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+
+	target: fire station
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/firestation.p.16.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon				
+	target: hospital
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/hospital.p.16.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+	target: police station
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/police.p.16.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+	target: cafe
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/cafe.p.16.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+	target: recycling
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/recycling.p.16.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+	target: supermarket
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/shop_supermarket.p.16.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+	target: diy
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/shop_diy.p.16.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+	target: convenience
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/shop_convenience.p.16.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+
+	target: mini roundabout
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/mini_round.png
+			min-zoom : 16
+			icon-width : 9
+		draw : icon
+	target: church
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/christian3.p.14.png
+			min-zoom : 16
+			icon-width : 16
+		draw : text
+		draw : icon
+	target: drinking water
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/food_drinkingtap.p.20.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+	target: bank
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/bank2.p.16.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+	target: atm
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/atm2.p.16.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+	target: restaurant
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/restaurant.p.16.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+	target: hair dresser
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/shop_hairdresser.p.16.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+
+	target: toilets
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/toilets.p.20.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+	target: pharmacy
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/pharmacy.p.16.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+	target: library
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/library.p.20.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+	target: bakery
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/shop_bakery.p.16.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+	target: tree
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/tree2.png
+			min-zoom : 16
+			icon-width : 6
+		draw : icon
+	target: memorial
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/memorial.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+	target: school
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/school.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+		draw : text
+	target : puffin
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/traffic_light.png
+			min-zoom : 16
+			icon-width : 16
+		draw : icon
+	target : mini roundabout
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/mini_round.png
+			min-zoom : 16
+			icon-width : 9
+		draw : icon
+
+	target : gate
+		define
+			icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/gate2.png
+			min-zoom : 16
+			icon-width : 7
+		draw : icon
+
+	target : tourism*
+		define
+			min-zoom : 17
+			text-color : #2B2B2B
+		draw : text
+		if : *hotel
+			define
+				icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/hotel2.p.20.png
+				min-zoom : 16
+				icon-width : 16
+
+		elseif : *viewpoint
+			define
+				icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/view_point.p.16.png
+				min-zoom : 16
+				icon-width : 16
+
+		elseif : *museum
+			define
+				icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/museum.p.16.png
+				min-zoom : 16
+				icon-width : 16
+		else
+			stop
+		draw : icon
+
+	target : amenity*
+		define
+			min-zoom : 17
+			text-color : #858585
+		draw : text
+
+		define
+			min-zoom : 16
+			icon-width : 16
+		if : *pub
+			define
+				icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/pub.p.16.png
+		elseif : *fast_food
+			define
+				icon-image : http://svn.openstreetmap.org/applications/rendering/mapnik/symbols/fast_food.png
+		else
+			stop
+		draw : icon
+
+
+	target: contour*
+		define
+			line-color : #7f7f7f
+			line-opacity : 0.5
+			curved : true
+		if : *major
+			define
+				min-zoom : 9
+				line-width : 9:1;10.9:1;11:2
+		else
+			define
+				min-zoom : 11
+				line-width : 1
+		draw : contour
+		
+	target: coastline
+		define
+			line-color : #B5B5B5
+			line-width : 2
+		draw : line
+
+
+	target : $featuretype(point)
+		if : place*
+			define
+				font-weight : bold
+	
+			if : *city
+				define
+					font-size : 6:8;14:20
+					min-zoom : 6
+					max-zoom : 14
+			elseif : *town
+				define
+					font-size : 9:8;12:10;20:20
+					min-zoom : 9
+			elseif : *village
+				define
+					font-size : 12:10;20:20
+					min-zoom : 12
+			elseif : *hamlet
+				define
+					font-size : 14:8;20:16
+					min-zoom : 14
+			draw : text
+		else
+			define
+				text : name
+				min-zoom : 17
+			draw : text	

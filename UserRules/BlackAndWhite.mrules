@@ -1,0 +1,39 @@
+// origin: https://wiki.openstreetmap.org/wiki/User:Andrewmk/Maperitive_Rules/BlackAndWhite
+
+features
+	lines
+		all lines : 
+	areas
+		all areas : 
+
+properties
+	map-background-color : #ffffff
+
+rules
+	target : all lines
+		define
+			line-color : black
+			line-width : 1
+		draw : line
+		define
+			font-size : 13:10;15:15
+			min-zoom : 13
+			text : name
+			text-align-vertical : near
+			text-color : black
+			text-max-width : 15
+			text-offset-vertical : 70%
+			text-halo-width : 30%
+			text-halo-opacity : 0.75
+		draw : text
+
+	target : all areas
+		define
+			font-size : 13:10;15:15
+			min-zoom : 17
+			text : [[addr:housenumber]]
+			text-color : black
+			text-max-width : 15
+			text-halo-width : 30%
+			text-halo-opacity : 0.75
+		draw : text
