@@ -1,0 +1,197 @@
+// ruleset by quelbs
+// Released under the Creative Commons Attribution-ShareAlike 3.0 License (http://creativecommons.org/licenses/by-sa/3.0/)
+
+features
+	areas
+		forest:landuse=forest
+		water:natural=water
+
+	lines
+		str autobahn : @isOneOf(highway,motorway,motorway_link) or (highway=construction and @isOneOf(construction,motorway,motorway_link))
+		str major : @isOneOf(highway,trunk,trunk_link,primary,primary_link) or (highway=construction and @isOneOf(construction,trunk,trunk_link,primary,primary_link))
+		str main:@isOneOf(highway,secondary,secondary_link) or (highway=construction and @isOneOf(construction,secondary,secondary_link))
+		str minor:@isOneOf(highway,tertiary,tertiary_link) or (highway=construction and @isOneOf(construction,tertiary,tertiary_link))
+		str other : @isOneOf(highway,unclassified,residential,service,living_street)
+		track:(highway=track AND (@isOneOf(tracktype,grade1,grade2,grade3) OR NOT tracktype))
+		path : @isOneOf(highway,path,footway,pedestrian,steps) OR (highway=track AND @isOneOf(tracktype,grade4,grade5))
+		rails:railway=rail
+
+	points
+		railwaystation:railway=station
+
+properties
+	map-background-color : #F1EDEA
+	map-background-opacity : 1
+	map-sea-color : #A9C5D3
+	font-size:12:100%;16:200%
+	font-weight : normal
+	font-family : Verdana
+	text-max-width : 7
+	text-halo-width : 25%
+	text-halo-opacity : 0.75
+	text-align-horizontal : center
+	text-align-vertical : center
+	font-stretch : 0.9
+	map.rendering.lflp.min-buffer-space : 5
+	map.rendering.lflp.max-allowed-corner-angle : 40
+	
+rules
+//areas
+	target : $featuretype(area)
+		define
+			line-style : none
+			line-width : 1
+		if : forest
+			define
+				min-zoom : 9
+				fill-color : #D0D8AF
+		elseif : water
+			define
+				min-zoom : 9
+				fill-color : #A9C5D4
+		else
+			stop
+		draw : fill
+//lines
+	target:str*
+		define
+			min-zoom : 10
+			text : ref
+			text-halo-width : 0
+			font-size : 9
+			font-weight : bold
+			shape : square
+			shield-resize-mode : free
+			shield-padding-left : 4
+			shield-padding-right : 3
+			shield-padding-top : 1
+			shield-padding-bottom : 1
+			line-width : 1
+			fill-color : #F9F9D9
+			line-color : #D2C087
+		if:str autobahn
+			define
+				text-color:white
+				shape : custom
+				shape-def : f:#6D80D2;p:#ffffff;-20,8,0,15,20,8,20,-8,0,-15,-20,-8;Z
+				shield-resize-mode : aspect
+		elseif:str other
+			stop
+		draw:shield
+	target:str*
+		define
+			min-zoom:14
+			text:name
+		draw:text
+	target:str autobahn
+		define
+			line-width : 10:2;14:5;16:20
+			border-style : solid
+			border-color : black
+			border-width : 10%
+			border-opacity : 0.8
+			line-color : #BFAEE6
+		draw : line
+	target:str major
+		define
+			min-zoom:10
+			line-width:10:1;14:4;16:18
+			line-color:#CDC0E6
+			border-color:#9B91AD
+			border-width:15%
+			border-style:solid
+			border-opacity:1
+		draw:line
+	target:str main
+		define
+			min-zoom:10
+			line-width:10:1;14:3;16:12
+			line-color:#CDC0E6
+			border-color:#CDC0E6 black 30%
+			border-width:15%
+			border-style:solid
+			border-opacity:1
+		draw:line
+	target:str minor
+		define
+			min-zoom:10
+			line-width:10:1;14:3;16:12
+			line-color:#DDDEE3
+			border-color:#DDDEE3 black 30%
+			border-width:15%
+			border-style:solid
+			border-opacity:1
+		draw:line
+	target:str other
+		define
+			min-zoom:11
+			max-zoom:13
+			line-width:1
+			line-color:#BBB
+		draw:line
+	target:str other
+		define
+			min-zoom:13
+			line-width:13:3;15:4;16:8
+			line-color:white
+			border-color:white black 30%
+			border-style:solid
+			border-width:15%
+			font-size:13:100%;15:100%;16:200%
+		draw:line
+		draw:text
+	target:track
+		define
+			min-zoom:13
+			line-width:13:2;15:3;16:6
+			line-color:white
+			border-color:white black 10%
+			border-style:solid
+			border-width:15%
+			font-size:13:100%;15:100%;16:200%
+			line-style:dash
+		draw:line
+		draw:text
+	target:path
+		define
+			min-zoom:13
+			line-width:1
+			line-color:white black 40%
+			border-style:none
+			font-size:100%
+			line-style:dashlong
+		draw:line
+		draw:text
+	target:rails
+		define
+			min-zoom:12
+			max-zoom:14
+			shape : custom
+			shape-def : p:#999;l:0,1,0,-1;m:5,0;l:-5,0
+			shape-spacing : 0
+			shape-aspect:0.5
+			shape-size : 30
+			fill-color : white black 40%
+			line-style : none
+		draw:shape
+	target:rails
+		define
+			min-zoom : 14
+			shape : custom
+			shape-def : p:#999;l:0,4,0,-4;m:-4,3;l:4,3;m:-4,-3;l:4,-3
+			shape-spacing : 0
+			shape-size : 14:4;20:10
+			fill-color : white black 40%
+			line-style : none
+		draw : shape
+//points
+	target:railwaystation
+		define
+			min-zoom:12
+			shape:square
+			shape-size:12:2;16:16
+			fill-color:#448EC7
+			line-style:none
+			text-offset-vertical:150%
+		draw:shape
+		draw:text
