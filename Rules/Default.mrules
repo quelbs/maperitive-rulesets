@@ -111,6 +111,8 @@ features
 		bridge foot : bridge=yes AND (foot=yes OR highway=footway)
 		historic citywalls : historic=citywalls OR historic=city_wall
 		power_line : power=line OR power=minor_line
+		aerialway closed: @isOneOf(aerialway,cable_car,gondola,mixed_lift)
+		aerialway open: @isOneOf(aerialway,chair_lift,drag_lift)
 
 		aeroway runway : aeroway=runway
 		aeroway taxiway : aeroway=taxiway
@@ -150,6 +152,7 @@ features
 		info : information=guidepost
 		bollard : barrier=bollard
 		lift_gate : barrier=lift_gate
+		aerialway station : aerialway=station
 
 		gps waypoints : gpswaypoint[]
 		gps trackpoints: gpstrack[].gpspoint[]
@@ -249,6 +252,18 @@ rules
 					min-zoom : 13
 					text-color : white black 50%
 			draw : text
+		if : aerialway station
+			define
+				min-zoom:12
+				shape:square
+				shape-size:12:3;16:8
+				fill-color:#7981B0
+				line-style:none
+				text-offset-vertical:120%
+				text-color:#8888FF
+			draw:shape
+			draw:text
+
 
 	target : all points and areas
 		define
@@ -512,7 +527,7 @@ rules
 		draw : shape
 	target : powertower
 		define
-			min-zoom: 13
+			min-zoom: 14
 			shape : custom
 			shape-def : m:-1,1;l:1,1,1,-1,-1,-1,-1,1,1,-1;m:-1,-1;l:1,1
 			shape-size : 14:2;20:9
@@ -531,6 +546,30 @@ rules
 				line-width: 1
 		draw : line
 
+	target:aerialway *
+		define
+			min-zoom:12
+			line-width:1
+			line-style:solid
+			line-color:#999
+		draw:line
+		draw:text
+	target:aerialway closed
+		define
+			min-zoom:12
+			shape:circle
+			shape-size:1
+			shape-spacing:20
+		draw:shape
+	target:aerialway open
+		define
+			min-zoom:12
+			shape:custom
+			shape-def:l:0,1,0,-1
+			shape-spacing:5
+			shape-size:3
+			line-width:1
+		draw:shape
 	target : platform
 		define
 			min-zoom : 13
