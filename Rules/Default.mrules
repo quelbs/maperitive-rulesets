@@ -991,6 +991,23 @@ rules
 			line-color : #B5D0D0
 			line-width : 7:1;12:2;14:5
 		draw : line
+		define
+			min-zoom:13
+			font-size:13:8;16:12
+			text-color:#B5D0D0
+			font-weight:normal
+		draw:text
+	target : stream
+		define
+			line-color : #B5D0D0
+			line-width : 13:1;15:2
+		draw : line
+		define
+			min-zoom:13
+			font-size:13:8;16:12
+			text-color:#B5D0D0
+			font-weight:normal
+		draw:text
 
 	target : canal
 		define
@@ -998,18 +1015,18 @@ rules
 			line-color : #B5D0D0
 			line-width : 12:1;17:8
 		draw : line
+		define
+			min-zoom:13
+			font-size:13:8;16:12
+			text-color:#B5D0D0
+			font-weight:normal
+		draw:text
 
 	target : drain
 		define
 			min-zoom : 13
 			line-color : #B5D0D0
 			line-width : 1
-		draw : line
-	target : stream
-		define
-			min-zoom : 13
-			line-color : #B5D0D0
-			line-width : 13:1;15:2
 		draw : line
 
 	target: parking
