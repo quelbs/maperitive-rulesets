@@ -76,33 +76,33 @@ rules
 	target: park
 		for : leisure=park
 			define
-				icon-image : icons/SJJB/landuse_coniferous.p.16.png
+				icon-image : icons/SJJB/png/landuse_coniferous.p.32.png
 				min-zoom : 16
 				icon-width : 16
 		draw : icon
 	target: hospital
 		define
-			icon-image : icons/SJJB/health_hospital.p.16.png
+			icon-image : icons/SJJB/png/health_hospital.p.32.png
 			min-zoom : 15
 			icon-width : 16
 		draw : icon
 	target: railway station
 		define
-			icon-image : icons/SJJB/transport_train_station2.n.16.png
+			icon-image : icons/SJJB/png/transport_train_station2.n.32.png
 			min-zoom : 15
 			icon-width : 16
 		draw : icon
 	target: restaurant
 		define
-			icon-image : icons/SJJB/food_restaurant.glow.16.png
+			icon-image : icons/SJJB/png/food_restaurant.glow.32.png
 			icon-width : 14
 			min-zoom : 17
 		for : amentiy=pub
 			define
-				icon-image : icons/SJJB/food_pub.glow.16.png
+				icon-image : icons/SJJB/png/food_pub.glow.32.png
 		for : amenity=bar
 			define
-				icon-image : icons/SJJB/food_bar.glow.16.png
+				icon-image : icons/SJJB/png/food_bar.glow.32.png
 		draw : icon
 // texts
 	target : $featuretype(point)

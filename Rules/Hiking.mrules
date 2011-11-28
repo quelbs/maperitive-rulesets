@@ -17,11 +17,11 @@
 // TODO (stuff still missing, will be added soon)
 // join all hiking paths
 // natural reserve
-// bus stop "Icons/SJJB/transport_bus_stop.p.16.png"
-// parking "Icons/SJJB/transport_parking.p.16.png"
+// bus stop "icons/SJJB/png/transport_bus_stop.p.32.png"
+// parking "icons/SJJB/png/transport_parking.p.32.png"
 // drinking water
 // hunting stand
-// viewpoint "Icons/SJJB/tourist_view_point.p.16.png"
+// viewpoint "icons/SJJB/png/tourist_view_point.p.32.png"
 // hiking routes (SLO)
 // surface unpaved
 // marsh
@@ -114,7 +114,7 @@ rules
 
 	target: alpine hut
 		define
-			icon-image : icons/SJJB/accommodation_alpinehut.p.16.png
+			icon-image : icons/SJJB/png/accommodation_alpinehut.p.32.png
 			icon-width : 16
 			min-zoom : 11
 		draw : icon
@@ -153,14 +153,14 @@ rules
 
 	target: shelter
 		define
-			icon-image : icons/SJJB/accommodation_shelter2.p.16.png
+			icon-image : icons/SJJB/png/accommodation_shelter2.p.32.png
 			icon-width : 16
 			min-zoom : 14
 		draw : icon
 		
 	target: food
 		define
-			icon-image : icons/SJJB/food_restaurant.p.16.png
+			icon-image : icons/SJJB/png/food_restaurant.p.32.png
 			icon-width : 16
 			min-zoom : 14
 		draw : icon
@@ -177,7 +177,7 @@ rules
 		
 	target: church
 		define
-			icon-image : icons/SJJB/place_of_worship_christian.p.16.png
+			icon-image : icons/SJJB/png/place_of_worship_christian.p.32.png
 			icon-width : 16
 			min-zoom : 14
 		draw : icon

@@ -1031,13 +1031,13 @@ rules
 
 	target: parking
 		define
-			icon-image : icons/SJJB/transport_parking.p.16.png
+			icon-image : icons/SJJB/png/transport_parking.p.32.png
 			min-zoom : 15
 			icon-width : 16
 		draw : icon
 	target: bus stop
 		define
-			icon-image : icons/SJJB/transport_bus_stop.p.16.png
+			icon-image : icons/SJJB/png/transport_bus_stop.p.32.png
 			min-zoom : 15
 			icon-width : 15:10;18:16
 		draw : icon
@@ -1057,32 +1057,32 @@ rules
 		draw : text
 	target: postbox
 		define
-			icon-image : icons/SJJB/amenity_post_box.p.16.png
+			icon-image : icons/SJJB/png/amenity_post_box.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
 	target: postoffice
 		define
-			icon-image : icons/SJJB/amenity_post_office.p.16.png
+			icon-image : icons/SJJB/png/amenity_post_office.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
 	target: telephone
 		define
-			icon-image : icons/SJJB/amenity_telephone.p.16.png
+			icon-image : icons/SJJB/png/amenity_telephone.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
 
 	target: fire station
 		define
-			icon-image : icons/SJJB/amenity_firestation.p.16.png
+			icon-image : icons/SJJB/png/amenity_firestation.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
 	target: hospital
 		define
-			icon-image : icons/SJJB/health_hospital.p.16.png
+			icon-image : icons/SJJB/png/health_hospital.p.32.png
 			min-zoom : 15
 			icon-width : 16
 		draw : icon
@@ -1093,50 +1093,50 @@ rules
 		draw : text
 	target: police station
 		define
-			icon-image : icons/SJJB/amenity_police.p.16.png
+			icon-image : icons/SJJB/png/amenity_police.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
 	target: cafe
 		define
-			icon-image : icons/SJJB/food_cafe.p.16.png
+			icon-image : icons/SJJB/png/food_cafe.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
 	target: recycling
 		define
-			icon-image : icons/SJJB/amenity_recycling.p.16.png
+			icon-image : icons/SJJB/png/amenity_recycling.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
 	target: supermarket
 		define
-			icon-image : icons/SJJB/shopping_supermarket.p.16.png
+			icon-image : icons/SJJB/png/shopping_supermarket.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
 	target: diy
 		define
-			icon-image : icons/SJJB/shopping_diy.p.16.png
+			icon-image : icons/SJJB/png/shopping_diy.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
 	target: convenience
 		define
-			icon-image : icons/SJJB/shopping_convenience.p.16.png
+			icon-image : icons/SJJB/png/shopping_convenience.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
 
 	target: mini roundabout
 		define
-			icon-image : icons/SJJB/transport_roundabout_anticlockwise.p.16.png
+			icon-image : icons/SJJB/png/transport_roundabout_anticlockwise.p.32.png
 			min-zoom : 16
 			icon-width : 9
 		draw : icon
 	target: church
 		define
-			icon-image : icons/SJJB/place_of_worship_christian3.p.16.png
+			icon-image : icons/SJJB/png/place_of_worship_christian3.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		define
@@ -1145,7 +1145,7 @@ rules
 		draw : icon
 	target: drinking water
 		define
-			icon-image : icons/SJJB/food_drinkingtap.p.16.png
+			icon-image : icons/SJJB/png/food_drinkingtap.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
@@ -1156,7 +1156,7 @@ rules
 			text-offset-vertical : 150%
 		draw : text
 		define
-			icon-image : icons/SJJB/money_bank2.p.16.png
+			icon-image : icons/SJJB/png/money_bank2.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
@@ -1167,7 +1167,7 @@ rules
 			text-offset-vertical : 150%
 		draw : text
 		define
-			icon-image : icons/SJJB/money_atm2.p.16.png
+			icon-image : icons/SJJB/png/money_atm2.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
@@ -1179,32 +1179,32 @@ rules
 			font-size : 10
 		draw : text
 		define
-			icon-image : icons/SJJB/food_restaurant.p.16.png
+			icon-image : icons/SJJB/png/food_restaurant.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
 	target: hair dresser
 		define
-			icon-image : icons/SJJB/shopping_hairdresser.p.16.png
+			icon-image : icons/SJJB/png/shopping_hairdresser.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
 
 	target: toilets
 		define
-			icon-image : icons/SJJB/amenity_toilets.p.16.png
+			icon-image : icons/SJJB/png/amenity_toilets.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
 	target: pharmacy
 		define
-			icon-image : icons/SJJB/health_pharmacy.p.16.png
+			icon-image : icons/SJJB/png/health_pharmacy.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
 	target: library
 		define
-			icon-image : icons/SJJB/amenity_library.p.16.png
+			icon-image : icons/SJJB/png/amenity_library.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
@@ -1215,7 +1215,7 @@ rules
 			text-offset-vertical : 150%
 		draw : text
 		define
-			icon-image : icons/SJJB/shopping_bakery.p.16.png
+			icon-image : icons/SJJB/png/shopping_bakery.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
@@ -1233,13 +1233,13 @@ rules
 		draw : icon
 	target: memorial
 		define
-			icon-image : icons/SJJB/tourist_memorial.p.16.png
+			icon-image : icons/SJJB/png/tourist_memorial.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
 	target: school
 		define
-			icon-image : icons/SJJB/education_school.p.16.png
+			icon-image : icons/SJJB/png/education_school.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
@@ -1248,14 +1248,14 @@ rules
 		draw : text
 	target : puffin
 		define
-			icon-image : icons/SJJB/transport_traffic_lights.p.16.png
+			icon-image : icons/SJJB/png/transport_traffic_lights.p.32.png
 			min-zoom : 16
 			icon-width : 16
 		draw : icon
 
 	target : gate
 		define
-			icon-image : icons/SJJB/barrier_gate.p.16.png
+			icon-image : icons/SJJB/png/barrier_gate.p.32.png
 			min-zoom : 16
 			icon-width : 7
 		draw : icon
@@ -1268,19 +1268,19 @@ rules
 		draw : text
 		if : *hotel
 			define
-				icon-image : icons/SJJB/accommodation_hotel2.p.16.png
+				icon-image : icons/SJJB/png/accommodation_hotel2.p.32.png
 				min-zoom : 16
 				icon-width : 16
 
 		elseif : *viewpoint
 			define
-				icon-image : icons/SJJB/tourist_view_point.p.16.png
+				icon-image : icons/SJJB/png/tourist_view_point.p.32.png
 				min-zoom : 16
 				icon-width : 16
 
 		elseif : *museum
 			define
-				icon-image : icons/SJJB/tourist_museum.p.16.png
+				icon-image : icons/SJJB/png/tourist_museum.p.32.png
 				min-zoom : 16
 				icon-width : 16
 		else
@@ -1299,10 +1299,10 @@ rules
 			icon-width : 16
 		if : *pub
 			define
-				icon-image : icons/SJJB/food_pub.p.16.png
+				icon-image : icons/SJJB/png/food_pub.p.32.png
 		elseif : *fast_food
 			define
-				icon-image : icons/SJJB/food_fastfood2.p.16.png
+				icon-image : icons/SJJB/png/food_fastfood2.p.32.png
 		else
 			stop
 		draw : icon
