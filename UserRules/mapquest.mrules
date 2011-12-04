@@ -1,0 +1,373 @@
+// Maperitive style similar to Open-MapQuest style
+// Created by Quelbs
+// Released under the Creative Commons Attribution-ShareAlike 3.0 License (http://creativecommons.org/licenses/by-sa/3.0/)
+
+features
+	points
+		motorway_junction: highway=motorway_junction
+		peak:natural=peak
+	lines
+		path:@isOneOf(highway,path,pedestrian,footway,track) and not(area=yes)
+		cycleway:highway=cycleway
+		steps:highway=steps
+		way:highway=service
+		street:@isOneOf(highway,residential,unclassified,living_street,tertiary,tertiary_link)
+		mainstreet:@isOneOf(highway,secondary,secondary_link)
+		road:@isOneOf(highway,primary,primary_link)
+		trunkroad:@isOneOf(highway,trunk,trunk_link)
+		motorway_link:highway=motorway_link
+		motorway:highway=motorway
+		oneway:oneway
+		waterway:@isOneOf(waterway,stream,river)
+		rail:railway=rail
+	areas
+		water:natural=water
+		green:landuse=forest or natural=wood or (leisure=pitch and @isOneOf(sport,soccer,tennis)) or @isOneOf(leisure,park,playground)
+		building:building=yes
+		pedestrian:highway=pedestrian
+		parking:amenity=parking
+		zoo:tourism=zoo
+		cemetery:landuse=cemetery or amenity=grave_yard
+		military:military
+	points, areas
+		housenumbers:[addr:housenumber]
+		hospital:amenity=hospital
+		city:place=city
+		town:place=town
+		village:place=village
+
+properties
+	map-background-color : #F6F3E9
+	font-size:12:100%;16:200%
+	font-weight:normal
+	font-family:Verdana
+	text-max-width:7
+	text-halo-width:15%
+	text-halo-opacity:0.75
+	text-align-horizontal:center
+	text-align-vertical:center
+	font-size:140%
+	text-offset-vertical:-10%
+
+rules
+
+//points
+	target:city
+		define
+			min-zoom:6
+			max-zoom:15
+			font-size:6:10;10:14
+			font-weight:bold
+			text-color:black white 30%
+		draw:text
+	target:town
+		define
+			min-zoom:8
+			font-size:8:8;10:10
+			font-weight:bold
+			text-color:black white 30%
+		draw:text
+	target:village
+		define
+			font-size:8
+			font-weight:bold
+			text-color:black white 50%
+		draw:text
+	target:motorway_junction
+		define
+			min-zoom:15
+			text:ref
+			text-halo-width:0
+			text-color:white
+			font-size:9
+			font-weight:bold
+			shape:square
+			shield-resize-mode:free
+			shield-padding-left:4
+			shield-padding-right:3
+			shield-padding-top:2
+			shield-padding-bottom:1
+			text-offset-vertical:-100%
+			text-align-vertical:far
+			line-width:1
+			fill-color:#2EAA40
+			line-color:white
+		draw:shield
+	target:motorway_junction
+		define
+			min-zoom:10
+			shape:circle
+			shape-size:10:2;14:2;15:3
+			fill-color:white
+			line-color:#2EAA40
+			line-width:10:1;14:1;15:2
+		draw:shape
+	target : peak
+		define
+			min-zoom : 12
+			shape:triangle
+			shape-size:12
+			fill-color:#CECEAD
+			line-color:black
+			line-width:1
+			min-zoom:11
+		draw : shape
+		define
+			text-color : #ae4242
+			font-size : 10
+			text-max-width : 10
+			text-offset-vertical:-100%
+			text-align-vertical:far
+			font-style:italic
+		draw : text
+
+// lines
+	target:oneway
+		define
+			min-zoom : 15
+			shape : custom
+			shape-def : 60,0,20,-40,20,-15,-60,-15,-60,15,20,15,20,40;Z
+			shape-size : 12
+			shape-aspect : 0.75
+			shape-spacing : 6
+			fill-color : gray
+			line-style : none
+		for : oneway=-1
+			define
+				angle : 180
+		draw : shape
+	target:motorway
+		define
+			min-zoom:10
+			text:ref
+			text-halo-width:0
+			text-color:white
+			font-size:9
+			font-weight:bold
+			shape:square
+			shield-resize-mode:free
+			shield-padding-left:4
+			shield-padding-right:3
+			shield-padding-top:2
+			shield-padding-bottom:2
+			line-width:1
+			fill-color:#BF3030
+			line-color:white #BF3030 60%
+			min-zoom:11
+			line-width:11:1;14:2;16:3
+			line-color:#FFE14C
+			line-style:solid
+			border-style:none
+		draw:line
+		draw:shield
+	target:motorway*
+		define
+			min-zoom:11
+			line-width:11:4;16:9
+			line-color:#E55050
+			line-style:solid
+			border-style:solid
+			border-color:black #E55050 60%
+			border-width:15%
+		if:motorway_link
+			define
+				line-width:11:2;14:3;16:7
+		draw:line
+	target:trunkroad
+		define
+			min-zoom:11
+			line-width:11:3;16:8
+			line-color:#E2A9A9
+			line-style:solid
+			border-style:solid
+			border-color:#AF5959
+			border-width:25%
+		draw:text
+		draw:line
+	target:road
+		define
+			min-zoom:11
+			line-width:11:2;16:6
+			line-color:#FBE297
+			line-style:solid
+			border-style:solid
+			border-color:#D1992F
+			border-width:25%
+		draw:text
+		draw:line
+	target:way
+		define
+			min-zoom:13
+			line-width:13:1;16:3
+			line-color:white
+			line-style:solid
+			border-style:solid
+			border-color:black white 60%
+			border-width:20%
+		draw:line
+	target:mainstreet
+		define
+			min-zoom:11
+			line-width:11:2;15:2;16:5
+			line-color:white
+			line-style:solid
+			border-style:solid
+			border-color:black white 60%
+			border-width:20%
+		draw:line
+		define
+			min-zoom:16
+		draw:text
+		define
+			min-zoom:11
+			text:ref
+			text-halo-width:0
+			font-size:9
+			font-weight:bold
+			shape:square
+			shield-resize-mode:free
+			shield-padding-left:4
+			shield-padding-right:3
+			shield-padding-top:2
+			shield-padding-bottom:2
+			line-width:1
+			fill-color:white
+			line-color:white black 60%
+		draw:shield
+	target:street
+		define
+			min-zoom:12
+			max-zoom:13
+			line-width:0.5
+			line-style:solid
+			line-color:black white 60%
+			line-opacity:0.2
+		draw:line
+	target:street
+		define
+			min-zoom:13
+			line-width:13:1;14:1;15:2;16:5
+			line-color:white
+			line-style:solid
+			border-style:solid
+			border-color:black white 60%
+			border-width:20%
+		draw:line
+		define
+			min-zoom:16
+		draw:text
+	target:path
+		define
+			min-zoom:14
+			line-width:14:0.5;15:1;16:2
+			line-color:#EFA0A5
+			line-style:dot
+			border-style:none
+		draw:line
+	target:cycleway
+		define
+			min-zoom:14
+			line-width:14:0.5;15:1;16:2
+			line-color:gray
+			line-style:dash
+			line-opacity:0.6
+			border-style:none
+		draw:line
+	target:steps
+		define
+			min-zoom : 16
+			shape : custom
+			shape-def : -1,1, -1,-1, 1,-1, 1,1;Z
+			shape-spacing : 1
+			shape-size : 16:1;20:3
+			shape-aspect : 2
+			fill-color : #EFA0A5
+			line-style : none
+		draw : shape
+	target:rail
+		define
+			min-zoom : 11
+			shape : custom
+			shape-def : -1,1, -1,-1, 1,-1, 1,1;Z
+			shape-spacing : 1
+			shape-size : 11:1;16:3;20:6
+			shape-aspect : 0.5
+			fill-color:white
+			line-style:none
+		draw:shape
+	target:rail
+		define
+			min-zoom : 11
+			line-width:11:1;16:3;20:6
+			line-color : gray
+			line-opacity:0.5
+			border-style : none
+		draw:line
+	//draw water on top of waterways
+	target:water
+		define
+			fill-color:#CDE8FE
+			line-style:none
+			border-style:none
+		draw:fill
+	target:waterway
+		define
+			min-zoom:13
+			line-width:13:1;14:1;15:2;16:3
+			line-color:#9AC5EA
+			line-style:solid
+		draw:line
+		draw:text
+	target:green
+		define
+			fill-color:#C4E3C5
+			line-style:none
+		draw:fill
+	target:hospital
+		define
+			fill-color:#BACECE
+			line-style:none
+		draw:fill
+	target:building
+		define
+			fill-color:black
+			line-style:none
+			fill-opacity:20%
+		draw:fill
+		define
+			min-zoom:15
+		draw:text
+	target:pedestrian
+		define
+			fill-color:black
+			line-style:none
+			fill-opacity:40%
+		draw:fill
+	target:parking
+		define
+			fill-color:#FFFEF2
+			line-style:none
+		draw:fill
+	target:zoo
+		define
+			fill-color:#EAD7C3
+			line-style:none
+		draw:fill
+	target:cemetery
+		define
+			fill-color:#D1DEBD
+			line-style:none
+		draw:fill
+	target:military
+		define
+			fill-color:#FE8E8E
+			line-style:none
+		draw:fill
+	target:housenumbers
+		define
+			min-zoom:17
+			text:[[addr:housenumber]]
+			text-halo-width:0
+			text-color:black
+			font-size:8
+		draw:text
