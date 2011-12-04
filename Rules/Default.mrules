@@ -34,7 +34,7 @@ features
 		amenity pub : amenity=pub
 		amenity fast_food : amenity=fast_food
 		aerodrome : aeroway=aerodrome
-		all points and areas :
+		housenumber : [addr:housenumber]
 	// These are not shown on Mapnik
 		puffin : crossing_ref=puffin
 		memorial : historic=memorial
@@ -265,10 +265,10 @@ rules
 			draw:text
 
 
-	target : all points and areas
+	target : housenumber
 		define
 			min-zoom : 17
-			text : addrhousenumber
+			text : [[addr:housenumber]]
 			text-halo-width : 0
 			font-size : 8
 		draw : text
