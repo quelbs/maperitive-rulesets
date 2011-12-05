@@ -137,6 +137,7 @@ features
 		place town : place=town
 		place village : place=village
 		place hamlet : place=hamlet
+		place locality: place=locality
 		place isolated_dwelling : place=isolated_dwelling
 		place suburb : place=suburb
 		diy : shop=doityourself
@@ -239,6 +240,10 @@ rules
 					font-size : 12:10;20:20
 					min-zoom : 12
 			elseif : *hamlet
+				define
+					font-size : 14:8;20:16
+					min-zoom : 14
+			elseif : *locality
 				define
 					font-size : 14:8;20:16
 					min-zoom : 14
