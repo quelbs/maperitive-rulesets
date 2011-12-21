@@ -47,6 +47,7 @@ features
 		village green : landuse=village_green
 		forest : landuse=forest OR natural=wood
 		farm : landuse=farm
+		farmyard:landuse=farmyard
 		grass : landuse=grass
 		fell : natural=fell
 		glacier : natural=glacier
@@ -306,6 +307,10 @@ rules
 			define
 				min-zoom : 9
 				fill-color : #E9D8BD
+		elseif : farmyard
+			define
+				min-zoom : 9
+				fill-color : #DCBE91
 		elseif : fell
 			define
 				fill-color : #C5FF5B black 10%
