@@ -970,6 +970,10 @@ rules
 			min-zoom : 13
 			line-color : black
 			line-width : 1
+		for:barrier=fence
+			define
+				min-zoom:16
+				line-color:#777
 		draw : line
 
 	target : bridge foot
