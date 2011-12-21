@@ -317,6 +317,11 @@ rules
 		elseif : water
 			define
 				fill-color : #B5D0D0
+		elseif:academic
+			define
+				fill-color : #F0F0D8
+				line-color : #E5D2CC
+				line-style : solid
 		elseif : residential area
 			define
 				fill-color : #DCDCDC
@@ -420,6 +425,9 @@ rules
 			stop
 		define
 			min-zoom : 17
+		if:academic
+			define
+				min-zoom:16
 		draw : text
 
 //		aeroway taxiway : aeroway=taxiway
@@ -445,17 +453,6 @@ rules
 			min-zoom : 10
 			text-color : #A3A3FE
 		draw : text
-
-	target : academic
-		define
-			fill-color : #F0F0D8
-			line-style : none
-		draw : fill
-		define
-			line-color : #E5D2CC
-			line-width : 1
-		draw : line
-//		draw : text
 
 	target : boundary*
 		define
