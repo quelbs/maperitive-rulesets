@@ -155,6 +155,7 @@ features
 		bollard : barrier=bollard
 		lift_gate : barrier=lift_gate
 		aerialway station : aerialway=station
+		motorway_junction : highway=motorway_junction
 
 		gps waypoints : gpswaypoint[]
 		gps trackpoints: gpstrack[].gpspoint[]
@@ -628,6 +629,15 @@ rules
 			define
 				line-color : white
 		draw : line
+
+	target : motorway_junction
+		define
+			font-size : 11 
+			min-zoom : 13
+			text-color : #849BBD
+			text-halo-width : 25%
+			text-offset-vertical : 150%
+		draw: text
 
 	target : highway*
 		define
