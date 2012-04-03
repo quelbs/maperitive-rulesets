@@ -606,6 +606,11 @@ rules
 			line-color : gray
 			line-width : 2
 		draw : line
+		define
+			min-zoom : 15
+			text-align-horizontal : center
+			text-align-vertical : center
+		draw:text
 
 	target : highway access*
 		define
