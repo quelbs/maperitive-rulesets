@@ -122,8 +122,8 @@ features
 		boundary province : boundary=administrative AND admin_level=6
 		boundary municipal : boundary=administrative AND admin_level=8
 
-		contour major : contour[@isMulti(elevation, 50)]
-		contour minor : contour[@isMulti(elevation, 10) and not @isMulti(elevation, 50)]
+		contour major : contour[@isMulti(elevation, 100)]
+		contour minor : contour[@isMulti(elevation, 20) and not @isMulti(elevation, 100)]
 
 		gps tracks : gpstrack[]
 		gps routes : gpsroute[]
@@ -1341,8 +1341,15 @@ rules
 			curved : true
 		if : *major
 			define
+				map.rendering.contour.label : true
 				min-zoom : 9
 				line-width : 11:0.1;11.9:1;12:2
+				font-size : 10
+				font-style : italic
+				font-weight : normal
+				text-halo-width : 35%
+				text-halo-opacity : 1
+				text-halo-color : #F1EEE8
 		else
 			define
 				min-zoom : 12
