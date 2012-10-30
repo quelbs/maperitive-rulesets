@@ -163,12 +163,11 @@ rules
 				shape-aspect : 0.5
 				shape-spacing : 6
 				fill-color : #6C6C6C
-				line-style : none
 			for : oneway=-1
 				define
 					angle : 180
 			draw : shape 
-		
+
 		define
 			line-join : round
 			line-start-cap : round
