@@ -19,7 +19,6 @@
 // natural reserve
 // bus stop "icons/SJJB/png/transport_bus_stop.p.32.png"
 // parking "icons/SJJB/png/transport_parking.p.32.png"
-// drinking water
 // hunting stand
 // viewpoint "icons/SJJB/png/tourist_view_point.p.32.png"
 // hiking routes (SLO)
@@ -49,6 +48,8 @@ features
 	points
 		peak : natural=peak
 		power tower : @isOneOf(power, tower, pole, station, sub_station)
+		fountain: natural=spring or amenity=fountain or man_made=water_well
+		fountain drinkingwater: amenity=drinking_water or drinking_water=yes
 
 	lines
 		aerialway : aerialway
@@ -196,6 +197,26 @@ rules
 			shape : square
 			shape-size : 11:0;13:4;15:20
 			fill-color : white
+		draw : shape
+
+	target: fountain*
+		define
+			min-zoom:14
+			shape : custom
+			shape-def : m:15,15;a:15,15,30,0;m:0,0;a:15,15,15,15
+			shape-size : 14:3;18:80
+			shape-aspect : 2
+			line-color : #00f
+			line-width : 14:1;18:3
+		draw : shape
+	target: fountain drinkingwater
+		define
+			min-zoom:14
+			shape:circle
+			shape-size : 14:3;18:8
+			line-color : #00f
+			line-width : 14:1;18:3
+			fill-color : transparent
 		draw : shape
 
 	target : power tower
