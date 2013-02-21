@@ -1,5 +1,5 @@
-// Maperitive rendering ruleset for hiking maps. The map style resembles 
-// that of paper hiking maps produced by Alpine Association of Slovenia (http://www.pzs.si/). 
+// Maperitive rendering ruleset for hiking maps. The map style resembles
+// that of paper hiking maps produced by Alpine Association of Slovenia (http://www.pzs.si/).
 // http://maperitive.net
 
 // Created by Igor Brejc
@@ -68,7 +68,7 @@ features
 		railway : railway=rail
 		power line : @isOneOf(power, line, minor_line)
 		stream : waterway=stream or waterway=river
-		
+
 	areas
 		building : building=yes
 		residential : landuse=residential
@@ -82,7 +82,7 @@ properties
 	text-halo-width : 30%
 	text-halo-opacity : 0.75
 	map-background-color : #fffefd
-		
+
 rules
 	target : place
 		for : place=city
@@ -158,7 +158,7 @@ rules
 			icon-width : 16
 			min-zoom : 14
 		draw : icon
-		
+
 	target: food
 		define
 			icon-image : icons/SJJB/png/food_restaurant.p.32.png
@@ -175,7 +175,7 @@ rules
 			text-offset-vertical : 100%
 			text-halo-width : 10%
 		draw : text
-		
+
 	target: church
 		define
 			icon-image : icons/SJJB/png/place_of_worship_christian.p.32.png
@@ -190,7 +190,7 @@ rules
 			text-align-vertical : near
 			text-offset-vertical : 100%
 		draw : text
-		
+
 	target : railway station
 		define
 			min-zoom : 11
@@ -230,9 +230,9 @@ rules
 			define
 				shape-size:16:3;20:4
 		draw : shape
-		
+
 // lines
-		
+
 	target : aerialway
 		define
 			shape-size : 12:2;16:6
@@ -249,21 +249,21 @@ rules
 				line-width : 13:1;14:2
 		else
 			define
-				min-zoom : 14	
+				min-zoom : 14
 				fill-color : black
 				line-width : 13:1;14:2
 		draw : line
 		define
 			line-width : 2
 		draw : shape
-					
+
 	target : power line
 		define
 			curved : false
 			min-zoom : 15.5
 			line-width : 1
 		draw : line
-		
+
 	target: hiking route*
 		define
 			line-color : red
@@ -279,7 +279,7 @@ rules
 				min-zoom : 12
 				line-width : 11:1;14:2;15:4
 		draw : line
-		
+
 	target: hiking path
 		define
 			min-zoom : 12
@@ -301,7 +301,7 @@ rules
 			line-width:1
 			line-color:white
 		draw : line
-		
+
 	target : road *
 		define
 			line-width : 10:0.5;13:2;14:2;16:3
@@ -315,7 +315,7 @@ rules
 				min-zoom : 14
 				line-color : white
 		draw : line
-		
+
 	target : road minor
 		define
 			min-zoom : 10
@@ -383,7 +383,7 @@ rules
 			define
 				line-width : 1
 		draw : line
-		
+
 	target : stream
 		define
 			min-zoom : 13
@@ -399,7 +399,7 @@ rules
 			map.rendering.lflp.min-buffer-space : 5
 			map.rendering.lflp.max-allowed-corner-angle : 90
 		draw : text
-		
+
 	target: contour*
 		define
 			line-color : #7f3300
@@ -417,7 +417,7 @@ rules
 		draw : contour
 
 // areas
-		
+
 	target : building
 		define
 			fill-color : black
@@ -448,30 +448,13 @@ rules
 			fill-hatch-opacity : 0
 			line-style : none
 		draw : fill
-		
-	target : $featuretype(area)
+
+	target : water
 		define
 			line-style : none
 			line-width : 1
-		if : forest
-			define
-				min-zoom : 9
-				fill-color : #8DC56C white 60%
-				//fill-texture : Textures/ForestNoiseLight.jpg
-		elseif : water
-			define
-				fill-color : #78C1C1 white 10%
-		elseif : residential
-			define
-				fill-color : #DCDCDC white 30%		
-		else
-			stop
+			fill-color : #78C1C1 white 10%
 		draw : fill
-		define
-			min-zoom : 17
-		draw : text
-		
-	target : water
 		define
 			min-zoom : 15
 			font-size : 15:10;17:17
@@ -479,4 +462,25 @@ rules
 			font-weight : bold
 			text-color : #78C1C1 black 10%
 		draw : text
-	
+
+	target : forest
+		define
+			line-style : none
+			line-width : 1
+			min-zoom : 9
+			fill-color : #8DC56C white 60%
+			//fill-texture : Textures/ForestNoiseLight.jpg
+		draw : fill
+		define
+			min-zoom : 17
+		draw : text
+
+	target : residential
+		define
+			line-style : none
+			line-width : 1
+			fill-color : #DCDCDC white 30%
+		draw : fill
+		define
+			min-zoom : 17
+		draw : text
