@@ -1,5 +1,5 @@
-// Maperitive rendering ruleset for hiking maps. The map style resembles
-// that of paper hiking maps produced by Alpine Association of Slovenia (http://www.pzs.si/).
+// Maperitive rendering ruleset for hiking maps. The map style resembles 
+// that of paper hiking maps produced by Alpine Association of Slovenia (http://www.pzs.si/). 
 // http://maperitive.net
 
 // Created by Igor Brejc
@@ -8,6 +8,8 @@
 
 // History:
 // --------
+// 2011-11-26: Updated by Igor Brejc
+//		- made a finer distinction between major and minor contour lines (now that Maperitive supports subpixel accuracy)
 // 2011-09-20: Updated by Igor Brejc
 //		- turned off forest texture
 //		- moved alpine hut in front of peaks
@@ -17,8 +19,8 @@
 // TODO (stuff still missing, will be added soon)
 // join all hiking paths
 // natural reserve
-// bus stop "icons/SJJB/png/transport_bus_stop.p.32.png"
-// parking "icons/SJJB/png/transport_parking.p.32.png"
+// bus stop "icons/SJJB/png/transport_bus_stop.glow.32.png"
+// parking "icons/SJJB/png/transport_parking.n.32.png"
 // hunting stand
 // viewpoint "icons/SJJB/png/tourist_view_point.p.32.png"
 // hiking routes (SLO)
@@ -50,7 +52,7 @@ features
 		power tower : @isOneOf(power, tower, pole, station, sub_station)
 		fountain: natural=spring or amenity=fountain or man_made=water_well
 		fountain drinkingwater: amenity=drinking_water or drinking_water=yes
-
+		
 	lines
 		aerialway : aerialway
 		contour major : contour[@isMulti(elevation, 50)]
@@ -68,7 +70,7 @@ features
 		railway : railway=rail
 		power line : @isOneOf(power, line, minor_line)
 		stream : waterway=stream or waterway=river
-
+		
 	areas
 		building : building=yes
 		residential : landuse=residential
@@ -82,7 +84,7 @@ properties
 	text-halo-width : 30%
 	text-halo-opacity : 0.75
 	map-background-color : #fffefd
-
+		
 rules
 	target : place
 		for : place=city
@@ -115,8 +117,8 @@ rules
 
 	target: alpine hut
 		define
-			icon-image : icons/SJJB/png/accommodation_alpinehut.p.32.png
-			icon-width : 16
+			icon-image : icons/SJJB/png/accommodation_alpinehut.glow.32.png
+			icon-width : 11:16;14:34
 			min-zoom : 11
 		draw : icon
 		define
@@ -134,8 +136,8 @@ rules
 			fill-color : black
 			line-style : none
 			min-zoom : 11
-			shape : triangle
-			shape-size : 11:8;15:16
+			shape : circle
+			shape-size : 11:3;15:8
 		draw : shape
 		define
 			font-family : Cambria
@@ -151,18 +153,18 @@ rules
 			text-halo-width : 30%
 			text-halo-opacity : 0.75
 		draw : text
-
+		
 	target: shelter
 		define
-			icon-image : icons/SJJB/png/accommodation_shelter2.p.32.png
-			icon-width : 16
+			icon-image : icons/SJJB/png/accommodation_shelter2.n.32.png
+			icon-width : 14:16;15:24
 			min-zoom : 14
 		draw : icon
-
+		
 	target: food
 		define
-			icon-image : icons/SJJB/png/food_restaurant.p.32.png
-			icon-width : 16
+			icon-image : icons/SJJB/png/food_restaurant.n.32.png
+			icon-width : 14:16;20:30
 			min-zoom : 14
 		draw : icon
 		define
@@ -175,11 +177,11 @@ rules
 			text-offset-vertical : 100%
 			text-halo-width : 10%
 		draw : text
-
+		
 	target: church
 		define
-			icon-image : icons/SJJB/png/place_of_worship_christian.p.32.png
-			icon-width : 16
+			icon-image : icons/SJJB/png/place_of_worship_christian3.glow.32.png
+			icon-width : 14:16;20:30
 			min-zoom : 14
 		draw : icon
 		define
@@ -190,7 +192,7 @@ rules
 			text-align-vertical : near
 			text-offset-vertical : 100%
 		draw : text
-
+		
 	target : railway station
 		define
 			min-zoom : 11
@@ -230,9 +232,9 @@ rules
 			define
 				shape-size:16:3;20:4
 		draw : shape
-
+		
 // lines
-
+		
 	target : aerialway
 		define
 			shape-size : 12:2;16:6
@@ -249,21 +251,21 @@ rules
 				line-width : 13:1;14:2
 		else
 			define
-				min-zoom : 14
+				min-zoom : 14	
 				fill-color : black
 				line-width : 13:1;14:2
 		draw : line
 		define
 			line-width : 2
 		draw : shape
-
+					
 	target : power line
 		define
 			curved : false
 			min-zoom : 15.5
 			line-width : 1
 		draw : line
-
+		
 	target: hiking route*
 		define
 			line-color : red
@@ -279,7 +281,7 @@ rules
 				min-zoom : 12
 				line-width : 11:1;14:2;15:4
 		draw : line
-
+		
 	target: hiking path
 		define
 			min-zoom : 12
@@ -293,29 +295,26 @@ rules
 
 	target : railway
 		define
-			line-width : 9:1;10:2;13.9:2;14:4
-			line-color:black
+			line-width : 9:1;10:2;13:2;14:3
 		draw : line
-		define
-			min-zoom : 14
-			line-width:1
-			line-color:white
-		draw : line
-
+		
 	target : road *
+		if : road major
+			define
+				min-zoom : 10
+				line-color : #FFE66B
+		else
+			define
+				min-zoom : 14
+				line-color : white
 		define
 			line-width : 10:0.5;13:2;14:2;16:3
 			border-style : solid
 			border-color : black
 			border-width : 80%
 			border-opacity : 0.8
-			line-color : #FFE66B
-		if : road minor
-			define
-				min-zoom : 14
-				line-color : white
 		draw : line
-
+		
 	target : road minor
 		define
 			min-zoom : 10
@@ -324,26 +323,32 @@ rules
 			line-width : 1
 			border-style : none
 		draw : line
-
-	target : track
+		
+	target : track major
+		define
+			min-zoom : 14
+			line-color : white
+			line-width : 13.9:1;14:2;16:3
+			border-style : solid
+			border-color : black
+			border-width : 60%
+			border-opacity : 0.8
+		draw : line
 		define
 			min-zoom : 12
 			max-zoom : 14
 			line-color : black
 			line-width : 1
 			border-style : none
-		for:@isOneOf(tracktype,grade3,grade4,grade5)
-			define
-				line-style:dash
-		draw:line
-	target : track
+		draw : line
+
+	target : track minor
 		define
-			min-zoom : 14
-			max-zoom:20
-			line-color : black
-			line-width : 13.9:1;14:1;16:3
+			min-zoom : 14.5
+			line-color : white
+			line-width : 13.9:1;14:2;16:3
 			border-style : solid
-			border-color : black white 80%
+			border-color : black
 			border-width : 60%
 			border-opacity : 0.8
 		for : tracktype=grade1 or not tracktype
@@ -373,17 +378,17 @@ rules
 		define
 			min-zoom:14
 			line-color : black
-			line-style : dot
+			line-style : dash
 			border-style : none
 		if : *major
 			define
-				line-style : dash
+				min-zoom : 14.5
 				line-width : 14.5:1;15.5:2
 		else
 			define
 				line-width : 1
 		draw : line
-
+		
 	target : stream
 		define
 			min-zoom : 13
@@ -399,25 +404,31 @@ rules
 			map.rendering.lflp.min-buffer-space : 5
 			map.rendering.lflp.max-allowed-corner-angle : 90
 		draw : text
-
+		
 	target: contour*
 		define
 			line-color : #7f3300
-			line-opacity : 0.35
+			line-opacity : 0.6
 			curved : true
 		if : *major
 			define
-				line-opacity : 0.5
-				min-zoom : 13
-				line-width : 11:0.1;12.9:1;13:2
+				map.rendering.contour.label : true
+				min-zoom : 12
+				line-width : 11:0.75;13:1.25;15:2
+				font-size : 10
+				font-style : italic
+				font-weight : normal
+				text-halo-width : 35%
+				text-halo-opacity : 1
+				text-halo-color : #F1EEE8
 		else
 			define
 				min-zoom : 13
-				line-width : 1
+				line-width : 0.65
 		draw : contour
 
 // areas
-
+		
 	target : building
 		define
 			fill-color : black
@@ -448,14 +459,14 @@ rules
 			fill-hatch-opacity : 0
 			line-style : none
 		draw : fill
-
+		
 	target : water
 		define
 			line-style : none
 			line-width : 1
 			fill-color : #78C1C1 white 10%
 		draw : fill
-		define
+			define
 			min-zoom : 15
 			font-size : 15:10;17:17
 			font-style : italic
@@ -467,19 +478,19 @@ rules
 		define
 			line-style : none
 			line-width : 1
-			min-zoom : 9
-			fill-color : #8DC56C white 60%
-			//fill-texture : Textures/ForestNoiseLight.jpg
+				min-zoom : 9
+				fill-color : #8DC56C white 60%
+				//fill-texture : Textures/ForestNoiseLight.jpg
 		draw : fill
-		define
+			define
 			min-zoom : 17
 		draw : text
 
 	target : residential
-		define
+			define
 			line-style : none
 			line-width : 1
-			fill-color : #DCDCDC white 30%
+				fill-color : #DCDCDC white 30%		
 		draw : fill
 		define
 			min-zoom : 17
