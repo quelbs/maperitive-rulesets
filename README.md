@@ -1,7 +1,7 @@
 Maperitive Rulesets
 ===================
 
-Here I work on the rulesets of [Maperitive](http://maperitive.net/).
+Here you find rulesets for [Maperitive](http://maperitive.net/). Sample renderings can be seen on the [Sample renderings page](http://quelbs.de/maperitive/)
 
 ### Rules
 
@@ -10,7 +10,7 @@ In this folder you can find the default rules that are included in Maperitive.
 ### UserRules
 
 Here you can find rules I created on my own, rules sent to me and rules found somewhere on the net.
-Some rules are taken from the [Maperitive rules category](http://wiki.openstreetmap.org/wiki/Category:Maperitive/Rules) of the [OpenStreetMap Wiki}(http://wiki.openstreetmap.org/wiki/).
+Some rules are taken from the [Maperitive rules category](http://wiki.openstreetmap.org/wiki/Category:Maperitive/Rules) of the [OpenStreetMap Wiki](http://wiki.openstreetmap.org/wiki/).
 
 Usage
 -----
