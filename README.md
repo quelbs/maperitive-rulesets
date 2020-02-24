@@ -1,7 +1,7 @@
 Maperitive Rulesets
 ===================
 
-Here you find rulesets for [Maperitive](http://maperitive.net/). Sample renderings can be seen on the [Sample renderings page](http://quelbs.de/maperitive/)
+Here you find rulesets for [Maperitive](http://maperitive.net/). Sample renderings can be seen on the [Sample renderings page](https://quelbs.github.io/maperitive/)
 
 ### Rules
 
